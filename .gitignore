@@ -2,3 +2,5 @@
 .godot/
 /android/
 /addons
+.DS_Store
+*.swp
