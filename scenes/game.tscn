@@ -72,9 +72,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_n7h4w")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q7ijs"]
-vertices = PackedVector2Array(257.188, 79.3125, 318.953, 7, 318.039, 198.156, 255.812, 150.852, 96.9531, 201.828, 170.578, 152.141, 216.961, 7, 225.922, 46, 225.211, 78.2969, 186.609, 46, 96.0391, 6.07031, 185.594, 62.2109, 153.906, 62.9766, 153.094, 133.812, 169.539, 134.57)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(0, 8, 7), PackedInt32Array(6, 7, 9, 10), PackedInt32Array(9, 11, 12, 10), PackedInt32Array(4, 10, 12, 13), PackedInt32Array(5, 4, 13, 14)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(86, -4, 87, 212, 328, 208, 329, -3, 217, -3, 215, 88, 247, 89, 246, 141, 180, 142, 179, 125, 163.206, 124.273, 163.805, 72.7514, 195, 72, 196, 56, 216, 56, 217, -3)])
+vertices = PackedVector2Array(257.203, 79, 318.953, 7, 318.039, 198.156, 255.797, 149, 96.9531, 201.828, 169, 149, 214.961, 7, 224.453, 48, 224.109, 79, 186.688, 48, 96.0391, 6.07031, 153.094, 133.812, 169, 134.539, 153.906, 62.9766, 185.672, 62.2109)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(0, 8, 7), PackedInt32Array(6, 7, 9, 10), PackedInt32Array(11, 12, 5, 4), PackedInt32Array(11, 4, 10, 13), PackedInt32Array(13, 10, 9, 14)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(86, -4, 87, 212, 328, 208, 329, -3, 215, -3, 214, 89, 247, 89, 246, 139, 179, 139, 179, 125, 163.206, 124.273, 163.805, 72.7514, 195, 72, 196, 58, 215, 58, 215, -3)])
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_2oo7b")
