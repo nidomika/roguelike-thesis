@@ -238,6 +238,8 @@ _data = {
 }
 
 [node name="FlyingCreature" instance=ExtResource("1_qagsf")]
+acceleration = 10
+max_speed = 20
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_66k56")

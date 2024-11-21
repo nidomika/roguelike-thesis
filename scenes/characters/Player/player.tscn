@@ -332,6 +332,8 @@ z_index = 1
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("2_v4s3x")
+acceleration = 30
+max_speed = 70
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_e5kko")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjx430h0qnvx3"]
+
+[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="1_qlp5j"]
+[ext_resource type="Script" path="res://entities/enemies/spawn_explosion.gd" id="2_wjv0b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ythin"]
+atlas = ExtResource("1_qlp5j")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yumha"]
+atlas = ExtResource("1_qlp5j")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlnao"]
+atlas = ExtResource("1_qlp5j")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_go80t"]
+atlas = ExtResource("1_qlp5j")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dpstc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ythin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yumha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlnao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_go80t")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SpawnExplosion" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_dpstc")
+script = ExtResource("2_wjv0b")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
