@@ -33,4 +33,4 @@ func take_damage(dmg: int, dir: Vector2, force: int) -> void:
 	
 func set_hp(new_hp: int) -> void:
 	hp = new_hp
-	hp_changed.emit() #change to emit_signal("hp_changed", new_hp) after upgrading to 4.4
+	hp_changed.emit(new_hp) #change to emit_signal("hp_changed", new_hp) after upgrading to 4.4
