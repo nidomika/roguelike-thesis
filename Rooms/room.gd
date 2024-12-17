@@ -31,8 +31,8 @@ func _open_doors() -> void:
 
 func _close_entrance() -> void:
 	for entry_position in entrance.get_children():
-		tilemap.set_cell(0, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
-		tilemap.set_cell(0, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 0, Vector2i.ZERO)
+		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 0, Vector2i(2,6))
+		tilemap.set_cell(0, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 0, Vector2i(3,3))
 
 
 func _spawn_enemies() -> void:
@@ -49,9 +49,8 @@ func _spawn_enemies() -> void:
 
 func _on_player_detector_body_entered(_body: Node2D) -> void: # node or characterbody??
 	player_detector.queue_free()
+	_close_entrance()
 	if num_enemies > 0:
-		_close_entrance()
 		_spawn_enemies()
 	else:
-		_close_entrance()
 		_open_doors()

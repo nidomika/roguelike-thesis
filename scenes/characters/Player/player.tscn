@@ -1,13 +1,30 @@
-[gd_scene load_steps=31 format=3 uid="uid://hfyenfwqewx6"]
+[gd_scene load_steps=38 format=3 uid="uid://hfyenfwqewx6"]
 
 [ext_resource type="PackedScene" uid="uid://db8pncllene1f" path="res://scenes/characters/character.tscn" id="1_xqw3a"]
 [ext_resource type="Texture2D" uid="uid://baxy6ejsx2ecq" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/heroes/knight/knight_idle_spritesheet.png" id="2_eogyo"]
 [ext_resource type="Script" path="res://scenes/characters/Player/player.gd" id="2_v4s3x"]
 [ext_resource type="Script" path="res://scenes/characters/Player/finite_state_machine.gd" id="3_e5kko"]
 [ext_resource type="Texture2D" uid="uid://qiw6gwf3s6lw" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/heroes/knight/knight_run_spritesheet.png" id="3_p8gio"]
+[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="4_dtx28"]
 [ext_resource type="Texture2D" uid="uid://c6gh6nf4cjpus" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/heroes/knight/weapon_sword_1.png" id="6_ci808"]
 [ext_resource type="Script" path="res://scenes/characters/Hitbox.gd" id="7_3i5vi"]
 [ext_resource type="Texture2D" uid="uid://dfpxw511vwoj6" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="7_b7lsi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odsmc"]
+atlas = ExtResource("4_dtx28")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiddn"]
+atlas = ExtResource("4_dtx28")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayxg8"]
+atlas = ExtResource("4_dtx28")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m58ik"]
+atlas = ExtResource("4_dtx28")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jo8ja"]
 atlas = ExtResource("2_eogyo")
@@ -59,6 +76,23 @@ region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0kfhi"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odsmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiddn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayxg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m58ik")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jo8ja")
@@ -235,8 +269,63 @@ _data = {
 "attack": SubResource("Animation_jg1tp")
 }
 
-[sub_resource type="Animation" id="Animation_an2g5"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_6o4l8"]
+resource_name = "dead"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"idle", &"dead"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i3tat"]
+resource_name = "hurt"
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -259,7 +348,19 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_bsr08"]
@@ -320,9 +421,50 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_an2g5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hfypu"]
 _data = {
 "RESET": SubResource("Animation_an2g5"),
+"dead": SubResource("Animation_6o4l8"),
+"hurt": SubResource("Animation_i3tat"),
 "idle": SubResource("Animation_bsr08"),
 "move": SubResource("Animation_f010l")
 }
