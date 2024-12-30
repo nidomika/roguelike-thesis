@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://4wj3i4828p07"]
+[gd_scene load_steps=31 format=3 uid="uid://4wj3i4828p07"]
 
 [ext_resource type="Script" path="res://Rooms/door.gd" id="1_qugut"]
 [ext_resource type="Texture2D" uid="uid://cp8hohvjprrl5" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_spritesheet.png" id="1_x0f2i"]
 [ext_resource type="Texture2D" uid="uid://drgmb8l22ogce" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_fullyopen.png" id="2_3m6gf"]
+[ext_resource type="Texture2D" uid="uid://c68w6dp416to7" path="res://assets/Cute_Fantasy_Dungeons/Dungeon_1/Dungeon_1_Door_anim.png" id="4_uil2a"]
+[ext_resource type="Texture2D" uid="uid://lb2gapkx8jij" path="res://assets/Cute_Fantasy_Dungeons/Dungeon_1/Dungeon_1_Door_Open copy.png" id="5_w5jfv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v07aj"]
 atlas = ExtResource("1_x0f2i")
@@ -60,6 +62,26 @@ region = Rect2(384, 0, 32, 32)
 atlas = ExtResource("1_x0f2i")
 region = Rect2(416, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxpay"]
+atlas = ExtResource("4_uil2a")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyu5b"]
+atlas = ExtResource("4_uil2a")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfb3x"]
+atlas = ExtResource("4_uil2a")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqryf"]
+atlas = ExtResource("4_uil2a")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i5ql"]
+atlas = ExtResource("4_uil2a")
+region = Rect2(128, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_n2en7"]
 animations = [{
 "frames": [{
@@ -110,6 +132,29 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxpay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyu5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfb3x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqryf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i5ql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_w5jfv")
+}],
+"loop": true,
+"name": &"new_animation",
 "speed": 5.0
 }]
 
@@ -169,9 +214,38 @@ tracks/1/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_6hk0x"]
+resource_name = "new_animation"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"new_animation"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_14pn1"]
 _data = {
 "RESET": SubResource("Animation_2cxx5"),
+"new_animation": SubResource("Animation_6hk0x"),
 "open": SubResource("Animation_723ks")
 }
 
@@ -184,6 +258,7 @@ script = ExtResource("1_qugut")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n2en7")
+animation = &"new_animation"
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

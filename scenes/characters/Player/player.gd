@@ -3,6 +3,8 @@ extends Character
 @onready var sword: Node2D = get_node("Sword")
 @onready var sword_animation_player: AnimationPlayer = sword.get_node("SwordAnimationPlayer")
 @onready var sword_hitbox: Area2D = get_node("Sword/Node2D/Sprite2D/SwordHitbox")
+
+
 func _process(_delta: float) -> void:
 	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
 	
@@ -32,3 +34,10 @@ func get_input() -> void:
 		
 	if Input.is_action_just_pressed("ui_attack") and not sword_animation_player.is_playing():
 		sword_animation_player.play("attack")
+
+func switch_camera() -> void: # TO DO
+	print(get_parent())
+	var main_scene_camera: Camera2D = get_parent().get_node("Camera2D")
+	main_scene_camera.position = position
+	main_scene_camera.current = true
+	get_node("Camera2D").current = false
