@@ -1,11 +1,20 @@
-[gd_scene load_steps=26 format=3 uid="uid://iytlb5rux4oa"]
+[gd_scene load_steps=36 format=3 uid="uid://iytlb5rux4oa"]
 
 [ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://scenes/characters/Enemies/Enemy.tscn" id="1_qagsf"]
 [ext_resource type="Script" path="res://scenes/characters/Enemies/FlyingCreature/flying_creature_fsm.gd" id="2_66k56"]
 [ext_resource type="Texture2D" uid="uid://dt3h4t5212vq1" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/enemies/flying creature/fly_anim_spritesheet.png" id="2_bry7j"]
 [ext_resource type="Script" path="res://scenes/characters/Enemies/FlyingCreature/flying_creature.gd" id="2_spx7n"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="3_2gwhe"]
+[ext_resource type="Texture2D" uid="uid://bgdr47xjyoyaq" path="res://assets/sgq/SGQ_Dungeon/characters/enemies/bat.png" id="4_fca6n"]
 [ext_resource type="Script" path="res://scenes/characters/Hitbox.gd" id="5_6a6t4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fa38"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jaqeg"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0dry4"]
 atlas = ExtResource("3_2gwhe")
@@ -22,6 +31,22 @@ region = Rect2(32, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xek80"]
 atlas = ExtResource("3_2gwhe")
 region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udfi6"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlc3s"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgsx8"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xeqd"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(48, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ui1ua"]
 atlas = ExtResource("2_bry7j")
@@ -55,8 +80,31 @@ region = Rect2(32, 0, 16, 16)
 atlas = ExtResource("2_bry7j")
 region = Rect2(48, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oj4xj"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jh7d"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_526pp"]
+atlas = ExtResource("4_fca6n")
+region = Rect2(32, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3ry16"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fa38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jaqeg")
+}],
+"loop": true,
+"name": &"attack_new",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0dry4")
@@ -72,6 +120,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udfi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlc3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgsx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xeqd")
+}],
+"loop": true,
+"name": &"dead_new",
 "speed": 5.0
 }, {
 "frames": [{
@@ -106,6 +171,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oj4xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jh7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_526pp")
+}],
+"loop": true,
+"name": &"fly_new",
 "speed": 5.0
 }]
 
@@ -274,7 +353,6 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource("1_qagsf")]
 script = ExtResource("2_spx7n")
 max_speed = 12
-hp = 2
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_66k56")
@@ -282,8 +360,10 @@ script = ExtResource("2_66k56")
 [node name="AnimatedSprite2D" parent="." index="1"]
 visibility_layer = 5
 sprite_frames = SubResource("SpriteFrames_3ry16")
-animation = &"fly"
+animation = &"fly_new"
 autoplay = "default"
+frame = 2
+frame_progress = 0.0630353
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 1)
