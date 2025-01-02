@@ -875,6 +875,7 @@ texture = ExtResource("8_nhbof")
 2:3/0/terrains_peering_bit/top_right_corner = 0
 0:3/0 = 0
 0:3/0/terrain_set = 1
+0:3/0/terrain = 0
 3:3/0 = 0
 3:3/0/terrain_set = 1
 3:3/0/terrain = 0

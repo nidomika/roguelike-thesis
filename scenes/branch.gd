@@ -2,6 +2,15 @@ extends Node
 
 class_name Branch
 
+class Vector2iDistanceComparer:
+	static func _new():
+		return Vector2iDistanceComparer
+	
+	static func compare(a, b):
+		var dist_a = a.position.distance_to(Vector2.ZERO)
+		var dist_b = b.position.distance_to(Vector2.ZERO)
+		return int(dist_a - dist_b)
+
 var left_child: Branch
 var right_child: Branch
 var position: Vector2i
@@ -50,3 +59,16 @@ func get_leaves():
 		
 func get_center():
 	return Vector2i(position.x + int(size.x / 2.0), position.y + int(size.y / 2.0))
+
+func generate_path():
+	var leaves = get_leaves()
+	leaves.sort_custom(func(a, b): return a.get_center().distance_to(Vector2i.ZERO) < b.get_center().distance_to(Vector2i.ZERO))
+
+	return leaves
+
+# Nowa funkcja: Przypisanie typów pokojów
+func assign_room_types(path):
+	path[0].type = "start" # Pierwszy pokój
+	path[-1].type = "boss" # Ostatni pokój
+	for i in range(1, path.size() - 1):
+		path[i].type = "intermediate" # Pokoje pośrednie
