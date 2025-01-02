@@ -3,8 +3,8 @@ class_name Character
 
 const FRICTION: float = 0.15
 
-@export var acceleration: int = 40
-@export var max_speed: int = 100
+@export var acceleration: int = 20
+@export var max_speed: int = 50
 @export var hp: int = 2: set = set_hp
 signal hp_changed(new_hp)
 
