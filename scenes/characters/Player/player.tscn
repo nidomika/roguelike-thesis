@@ -1,10 +1,8 @@
-[gd_scene load_steps=54 format=3 uid="uid://hfyenfwqewx6"]
+[gd_scene load_steps=40 format=3 uid="uid://hfyenfwqewx6"]
 
 [ext_resource type="PackedScene" uid="uid://db8pncllene1f" path="res://scenes/characters/character.tscn" id="1_xqw3a"]
-[ext_resource type="Texture2D" uid="uid://baxy6ejsx2ecq" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/heroes/knight/knight_idle_spritesheet.png" id="2_eogyo"]
 [ext_resource type="Script" path="res://scenes/characters/Player/player.gd" id="2_v4s3x"]
 [ext_resource type="Script" path="res://scenes/characters/Player/finite_state_machine.gd" id="3_e5kko"]
-[ext_resource type="Texture2D" uid="uid://qiw6gwf3s6lw" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/heroes/knight/knight_run_spritesheet.png" id="3_p8gio"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="4_dtx28"]
 [ext_resource type="Texture2D" uid="uid://qw84p6fdbf8e" path="res://assets/sgq/SGQ_Dungeon/characters/main/elf.png" id="5_bcp6f"]
 [ext_resource type="Texture2D" uid="uid://c6gh6nf4cjpus" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/heroes/knight/weapon_sword_1.png" id="6_ci808"]
@@ -71,30 +69,6 @@ region = Rect2(16, 0, 16, 16)
 atlas = ExtResource("5_bcp6f")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jo8ja"]
-atlas = ExtResource("2_eogyo")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ugxml"]
-atlas = ExtResource("2_eogyo")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cd5e1"]
-atlas = ExtResource("2_eogyo")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4q7a0"]
-atlas = ExtResource("2_eogyo")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hpi8s"]
-atlas = ExtResource("2_eogyo")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_utbn4"]
-atlas = ExtResource("2_eogyo")
-region = Rect2(80, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ehdc6"]
 atlas = ExtResource("5_bcp6f")
 region = Rect2(0, 32, 16, 16)
@@ -110,30 +84,6 @@ region = Rect2(32, 32, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_u30rc"]
 atlas = ExtResource("5_bcp6f")
 region = Rect2(48, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dmha5"]
-atlas = ExtResource("3_p8gio")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bra3j"]
-atlas = ExtResource("3_p8gio")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kb8co"]
-atlas = ExtResource("3_p8gio")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dm4gj"]
-atlas = ExtResource("3_p8gio")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aafqq"]
-atlas = ExtResource("3_p8gio")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2spg"]
-atlas = ExtResource("3_p8gio")
-region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0kfhi"]
 animations = [{
@@ -204,29 +154,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jo8ja")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ugxml")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cd5e1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4q7a0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hpi8s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_utbn4")
-}],
-"loop": true,
-"name": &"idle_old",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ehdc6")
 }, {
 "duration": 1.0,
@@ -240,29 +167,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"move",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dmha5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bra3j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kb8co")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dm4gj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aafqq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d2spg")
-}],
-"loop": true,
-"name": &"move_old",
 "speed": 5.0
 }]
 
@@ -572,8 +476,6 @@ z_index = 1
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("2_v4s3x")
-acceleration = 30
-max_speed = 70
 hp = 6
 
 [node name="FiniteStateMachine" parent="." index="0"]
