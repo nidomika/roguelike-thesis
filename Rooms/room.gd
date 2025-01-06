@@ -3,12 +3,12 @@ extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://entities/enemies/spawn_explosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"BAT": preload("res://scenes/characters/Enemies/Bat/bat.tscn")
+	"BAT": preload("res://characters/Enemies/Bat/bat.tscn")
 }
 
 var num_enemies: int
 
-@onready var tilemap: TileMap = get_node("NavigationRegion2D/TileMap2")
+@onready var tilemap: TileMap = get_node("NavigationRegion2D/TileMap")
 @onready var door_container: Node2D = get_node("Doors")
 @onready var entrance: Node2D = get_node("Entrance")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")

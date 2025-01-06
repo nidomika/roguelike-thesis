@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c7f2bb6hdekgv"]
 
-[ext_resource type="PackedScene" uid="uid://5ar27raogcxr" path="res://Rooms/room.tscn" id="1_83vqu"]
-[ext_resource type="PackedScene" uid="uid://4wj3i4828p07" path="res://Rooms/door.tscn" id="2_t7gwo"]
-[ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://scenes/characters/Player/player.tscn" id="3_shii3"]
+[ext_resource type="PackedScene" uid="uid://5ar27raogcxr" path="res://rooms/room.tscn" id="1_83vqu"]
+[ext_resource type="PackedScene" uid="uid://4wj3i4828p07" path="res://rooms/door.tscn" id="2_t7gwo"]
+[ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://characters/Player/player.tscn" id="3_shii3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_muhwe"]
 vertices = PackedVector2Array(246, 158.812, 234, 158.938, 234, 158.773, 234, 90, 170, 122, 182, 90, 54, 158.812, 42, 158.938, 42, 158.773, 54, 134, 218, 158.938, 218, 158.773, 182, 159.172, 170, 158.773, 134, 122, 154, 158.938, 154, 158.773, 138, 158.938, 138, 158.773, 122, 158.938, 122, 158.773, 106, 158.938, 106, 134, 122, 90, 134, 86, 26, 158.938, 26, 158.773, 42, 106, 70, 90, 10, 158.938, 10, 106, 122, 58, 182, 58, 234, 58, 246, 58, 170, 86, 182, 166, 170, 166, 42, 70, 10, 70, 10, 58, 70, 58)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://4wj3i4828p07"]
 
-[ext_resource type="Script" path="res://Rooms/door.gd" id="1_qugut"]
+[ext_resource type="Script" path="res://rooms/door.gd" id="1_qugut"]
 [ext_resource type="Texture2D" uid="uid://cp8hohvjprrl5" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_spritesheet.png" id="1_x0f2i"]
 [ext_resource type="Texture2D" uid="uid://drgmb8l22ogce" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_fullyopen.png" id="2_3m6gf"]
 

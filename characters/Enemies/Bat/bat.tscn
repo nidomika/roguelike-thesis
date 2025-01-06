@@ -1,11 +1,11 @@
 [gd_scene load_steps=31 format=3 uid="uid://iytlb5rux4oa"]
 
-[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://scenes/characters/Enemies/Enemy.tscn" id="1_qagsf"]
-[ext_resource type="Script" path="res://scenes/characters/Enemies/Bat/bat_fsm.gd" id="2_66k56"]
-[ext_resource type="Script" path="res://scenes/characters/Enemies/Bat/bat.gd" id="2_spx7n"]
+[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_qagsf"]
+[ext_resource type="Script" path="res://characters/Enemies/Bat/bat_fsm.gd" id="2_66k56"]
+[ext_resource type="Script" path="res://characters/Enemies/Bat/bat.gd" id="2_spx7n"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="3_2gwhe"]
 [ext_resource type="Texture2D" uid="uid://bgdr47xjyoyaq" path="res://assets/sgq/SGQ_Dungeon/characters/enemies/bat.png" id="4_fca6n"]
-[ext_resource type="Script" path="res://scenes/characters/Hitbox.gd" id="5_6a6t4"]
+[ext_resource type="Script" path="res://characters/Hitbox.gd" id="5_6a6t4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fa38"]
 atlas = ExtResource("4_fca6n")
