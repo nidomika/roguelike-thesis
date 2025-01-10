@@ -18,5 +18,3 @@ shape = SubResource("CapsuleShape2D_jwka1")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
 texture = ExtResource("2_tvypi")
-
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
