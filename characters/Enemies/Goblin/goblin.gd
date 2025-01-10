@@ -6,7 +6,10 @@ const MAX_DISTANCE_TO_PLAYER: int = 120
 const MIN_DISTANCE_TO_PLAYER: int = 60
 
 @export var projectile_speed: int = 150
+
 @onready var attack_timer: Timer = get_node("AttackTimer")
+@onready var aim_raycast: RayCast2D = get_node("AimRayCast2D")
+
 var can_attack: bool = true
 var distance_to_player: float
 
@@ -19,7 +22,8 @@ func _on_path_timer_timeout() -> void:
 		elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
 			_get_path_to_move_away_from_player()
 		else:
-			if can_attack:
+			aim_raycast.target_position = player.position - global_position
+			if can_attack and state_machine.state == state_machine.states.idle and not aim_raycast.is_colliding():
 				can_attack = false
 				_throw_throwable()
 				attack_timer.start()
