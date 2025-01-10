@@ -3,10 +3,11 @@ extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://entities/enemies/spawn_explosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"BAT": preload("res://characters/Enemies/Bat/bat.tscn")
+	"BAT": preload("res://characters/Enemies/Bat/bat.tscn"),
+	"GOBLIN": preload("res://characters/Enemies/Goblin/goblin.tscn")
 }
 
-var num_enemies: int
+var number_of_enemies: int
 
 @onready var tilemap: TileMap = get_node("NavigationRegion2D/TileMap")
 @onready var door_container: Node2D = get_node("Doors")
@@ -14,12 +15,14 @@ var num_enemies: int
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 @onready var player_detector: Area2D = get_node("PlayerDetector")
 
+
 func _ready() -> void:
-	num_enemies = enemy_positions_container.get_child_count()
-	
+	number_of_enemies = enemy_positions_container.get_child_count()
+
+
 func _on_enemy_killed() -> void:
-	num_enemies -= 1
-	if num_enemies == 0:
+	number_of_enemies -= 1
+	if number_of_enemies == 0:
 		_open_doors()
 	
 	
@@ -36,7 +39,11 @@ func _close_entrance() -> void:
 
 func _spawn_enemies() -> void:
 	for enemy_position in enemy_positions_container.get_children():
-		var enemy: CharacterBody2D = ENEMY_SCENES.BAT.instantiate()
+		var enemy: CharacterBody2D
+		if randi() % 2 == 0:
+			enemy = ENEMY_SCENES.BAT.instantiate()
+		else:
+			enemy = ENEMY_SCENES.GOBLIN.instantiate()
 		enemy.position = enemy_position.position
 		var __ = enemy.connect("tree_exited",self._on_enemy_killed)
 		call_deferred("add_child", enemy)
@@ -46,10 +53,10 @@ func _spawn_enemies() -> void:
 		call_deferred("add_child", spawn_explosion)
 
 
-func _on_player_detector_body_entered(_body: Node2D) -> void: # node or characterbody??
+func _on_player_detector_body_entered(_body: Node2D) -> void:
 	player_detector.queue_free()
 	_close_entrance()
-	if num_enemies > 0:
+	if number_of_enemies > 0:
 		_spawn_enemies()
 	else:
 		_open_doors()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://1d6w3iriv055"]
+[gd_scene load_steps=29 format=3 uid="uid://1d6w3iriv055"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_ff3y8"]
 [ext_resource type="Texture2D" uid="uid://kfkj568mt78k" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/grounds.png" id="2_4rkeb"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://daluyl41t7y02" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_half.png" id="12_a1c0h"]
 [ext_resource type="Texture2D" uid="uid://cjktjuq5yqfbe" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_empty.png" id="13_n8a5k"]
 [ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://characters/Player/player.tscn" id="14_a32p3"]
+[ext_resource type="PackedScene" uid="uid://d2v877jytveo8" path="res://characters/Enemies/Goblin/goblin.tscn" id="14_qg3vc"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tvr48"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_f53r1"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -1043,6 +1046,7 @@ script = ExtResource("1_ff3y8")
 script = ExtResource("8_yy02n")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_tvr48")
 
 [node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
 tile_set = SubResource("TileSet_i5su1")
@@ -1078,5 +1082,9 @@ stretch_mode = 4
 [node name="Player" parent="." instance=ExtResource("14_a32p3")]
 position = Vector2(75, 87)
 max_speed = 100
+
+[node name="Goblin" parent="." instance=ExtResource("14_qg3vc")]
+position = Vector2(115, 66)
+projectile_speed = 150
 
 [connection signal="hp_changed" from="Player" to="UI/HeartsContainer" method="_on_player_hp_changed"]
