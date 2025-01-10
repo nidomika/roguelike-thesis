@@ -37,7 +37,7 @@ func get_input() -> void:
 
 
 func switch_camera() -> void: 
-	var main_scene_camera: Camera2D = get_node("Camera2D")
+	var main_scene_camera: Camera2D = get_parent().get_node("Camera2D")
 	main_scene_camera.position = position
 	main_scene_camera.enabled = true
 	get_node("Camera2D").enabled = false
