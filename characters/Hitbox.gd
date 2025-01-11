@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	body_inside = true
-	timer.start()
+	timer.autostart = true
 	while body_inside:
 		_collide(body)
 		await timer.timeout
