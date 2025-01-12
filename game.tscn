@@ -1,8 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://1d6w3iriv055"]
+[gd_scene load_steps=28 format=3 uid="uid://1d6w3iriv055"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_ff3y8"]
 [ext_resource type="Texture2D" uid="uid://kfkj568mt78k" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/grounds.png" id="2_4rkeb"]
-[ext_resource type="PackedScene" uid="uid://dvvv08hbtt834" path="res://rooms/spikes.tscn" id="3_8bp78"]
 [ext_resource type="Texture2D" uid="uid://bsudmrffk2c6m" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/walls.png" id="3_g11nn"]
 [ext_resource type="Texture2D" uid="uid://dxhro4fje6xuv" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/surground.png" id="4_6l7ts"]
 [ext_resource type="Texture2D" uid="uid://01aipbypqk54" path="res://assets/sgq/SGQ_Dungeon/props/props.png" id="5_7qw6r"]
@@ -14,8 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://daluyl41t7y02" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_half.png" id="12_a1c0h"]
 [ext_resource type="Texture2D" uid="uid://cjktjuq5yqfbe" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_empty.png" id="13_n8a5k"]
 [ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://characters/Player/player.tscn" id="14_a32p3"]
-[ext_resource type="PackedScene" uid="uid://d2v877jytveo8" path="res://characters/Enemies/Goblin/goblin.tscn" id="14_qg3vc"]
-[ext_resource type="PackedScene" uid="uid://iytlb5rux4oa" path="res://characters/Enemies/Bat/bat.tscn" id="15_plo3r"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tvr48"]
 
@@ -1016,7 +1013,7 @@ texture = ExtResource("3_g11nn")
 8:0/0/z_index = -2
 8:0/0/terrain_set = 1
 8:0/0/terrain = 0
-8:0/0/probability = 0.01
+8:0/0/probability = 0.1
 8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:0/0/terrains_peering_bit/bottom_right_corner = 0
 8:0/0/terrains_peering_bit/bottom_left_corner = 0
@@ -1072,7 +1069,7 @@ texture = ExtResource("3_g11nn")
 8:1/0/z_index = -2
 8:1/0/terrain_set = 1
 8:1/0/terrain = 0
-8:1/0/probability = 0.01
+8:1/0/probability = 0.1
 8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:1/0/terrains_peering_bit/bottom_left_corner = 0
 8:1/0/terrains_peering_bit/top_left_corner = 0
@@ -1080,7 +1077,7 @@ texture = ExtResource("3_g11nn")
 8:2/0/z_index = -2
 8:2/0/terrain_set = 1
 8:2/0/terrain = 0
-8:2/0/probability = 0.01
+8:2/0/probability = 0.1
 8:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:2/0/terrains_peering_bit/bottom_right_corner = 0
 8:2/0/terrains_peering_bit/top_right_corner = 0
@@ -1136,7 +1133,7 @@ texture = ExtResource("3_g11nn")
 8:3/0/z_index = -2
 8:3/0/terrain_set = 1
 8:3/0/terrain = 0
-8:3/0/probability = 0.01
+8:3/0/probability = 0.1
 8:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:3/0/terrains_peering_bit/top_left_corner = 0
 8:3/0/terrains_peering_bit/top_right_corner = 0
@@ -1238,31 +1235,14 @@ sources/4 = SubResource("TileSetAtlasSource_u1hu3")
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ff3y8")
 
-[node name="Branch" type="Node" parent="."]
-script = ExtResource("8_yy02n")
-
-[node name="Traps" type="Node2D" parent="."]
-
-[node name="Spikes" parent="Traps" instance=ExtResource("3_8bp78")]
-position = Vector2(54, 55)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_tvr48")
-
-[node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
-tile_set = SubResource("TileSet_i5su1")
-format = 2
-layer_0/name = "building"
-layer_1/name = "objects"
-
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("9_jh85c")
 
 [node name="HeartsContainer" type="HBoxContainer" parent="UI"]
 offset_left = 16.0
-offset_top = 13.0
+offset_top = 16.0
 offset_right = 112.0
-offset_bottom = 40.0
+offset_bottom = 43.0
 script = ExtResource("10_2wpdm")
 full_heart_texture = ExtResource("11_kpccp")
 half_heart_texture = ExtResource("12_a1c0h")
@@ -1280,14 +1260,24 @@ stretch_mode = 4
 layout_mode = 2
 stretch_mode = 4
 
-[node name="Goblin" parent="." instance=ExtResource("14_qg3vc")]
-position = Vector2(115, 66)
+[node name="Branch" type="Node" parent="."]
+script = ExtResource("8_yy02n")
 
-[node name="Bat" parent="." instance=ExtResource("15_plo3r")]
-position = Vector2(119, 106)
+[node name="Detectors" type="Node2D" parent="."]
+
+[node name="Traps" type="Node2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_tvr48")
+
+[node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
+tile_set = SubResource("TileSet_i5su1")
+format = 2
+layer_0/name = "building"
+layer_1/name = "objects"
 
 [node name="Player" parent="." instance=ExtResource("14_a32p3")]
-position = Vector2(75, 87)
+position = Vector2(64, 80)
 max_speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="."]
