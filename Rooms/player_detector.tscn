@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://yb0o0hj3ki1c"]
+
+[ext_resource type="Script" path="res://rooms/player_detector.gd" id="1_lsxq0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bscn"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
+[node name="PlayerDetector" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_lsxq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_1bscn")
+debug_color = Color(0.795185, 0.320247, 0.711727, 0.42)

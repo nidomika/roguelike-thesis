@@ -1,5 +1,4 @@
 extends Node
-
 class_name Branch
 
 var left_child: Branch
@@ -8,23 +7,55 @@ var position: Vector2i
 var size: Vector2i
 
 var min_room_size: int = 10
+var max_room_size: int = 22
+
+var min_monster_spawn_size: Vector2i = Vector2i(8, 5)
+var enemies_count: int = 0
+
+var padding_left: int = randi_range(1, 3)
+var padding_top: int = randi_range(2, 3)
+var padding_right: int = randi_range(1, 3)
+var padding_bottom: int = randi_range(2, 3)
+
+var room_position: Vector2i = Vector2i()
+var room_size: Vector2i = Vector2i()
+
+var inside_pos: Vector2i
+var inside_size: Vector2i
+
 
 func _init(starting_position: Vector2i = Vector2i(), starting_size: Vector2i = Vector2i()):
 	self.position = starting_position
 	self.size = starting_size
+	
+	inside_pos = position + Vector2i(padding_left, padding_top)
+	inside_size = size - Vector2i(padding_left + padding_right, padding_top + padding_bottom)
+	
+	room_position = inside_pos
+	room_size = inside_size
 
+
+# BSP
 func get_leaves() -> Array:
 	if left_child == null and right_child == null:
 		return [self]
 	else:
 		return left_child.get_leaves() + right_child.get_leaves()
 
+
 func split(remaining: int):
-	var split_horizontal: bool = randf() > 0.5
-	if size.x > size.y:
+	if size.x <= max_room_size and size.y <= max_room_size:
+		return
+		
+	var split_horizontal: bool
+	var ratio = float(size.x) / float(size.y)
+
+	if ratio > 1.6:
 		split_horizontal = false
-	elif size.y > size.x:
+	elif ratio <= 0.5:
 		split_horizontal = true
+	else:
+		split_horizontal = (randf() > 0.5)
 
 	var max_split_point = (size.y if split_horizontal else size.x) - min_room_size
 	if max_split_point <= min_room_size:
@@ -48,9 +79,25 @@ func split(remaining: int):
 	if (remaining > 0 and left_child != null and right_child != null):
 		left_child.split(remaining - 1)
 		right_child.split(remaining - 1)
-			
+
+
+func assign_monsters(min_monsters: int, max_monsters: int):
+	if left_child == null and right_child == null:
+		if room_size.x >= min_monster_spawn_size.x and room_size.y >= min_monster_spawn_size.y:
+			enemies_count = randi_range(min_monsters, max_monsters)
+		else:
+			enemies_count = 0
+	else:
+		if left_child != null:
+			left_child.assign_monsters(min_monsters, max_monsters)
+		if right_child != null:
+			right_child.assign_monsters(min_monsters, max_monsters)
+
+
+# Minimum Spanning Tree
 func get_center() -> Vector2i:
-	return position + size / 2
+	return room_position + room_size / 2
+
 
 func generate_mst_connections() -> Array:
 	var rooms = get_leaves()
@@ -91,11 +138,13 @@ func generate_mst_connections() -> Array:
 
 	return mst_connections
 
+
 func is_edge_duplicate(edges: Array, edge: Dictionary) -> bool:
 	for e in edges:
 		if (e["start"] == edge["end"] and e["end"] == edge["start"]) or (e["start"] == edge["start"] and e["end"] == edge["end"]):
 			return true
 	return false
+
 
 func compare_edges(a, b) -> bool:
 	return a["distance"] < b["distance"]
