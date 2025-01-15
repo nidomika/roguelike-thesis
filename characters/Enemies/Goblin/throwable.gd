@@ -28,6 +28,6 @@ func _on_body_exited(_body: Node2D) -> void:
 
 func _collide(body: Node2D) -> void:
 	if enemy_exited:
-		if body.has_method("take_damage"):
+		if body.has_method("take_damage") and body.name == "Player":
 			body.take_damage(damage, knockback_direction, knockback_force)
 		queue_free()

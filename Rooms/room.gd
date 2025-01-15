@@ -1,62 +1,79 @@
 extends Node2D
 
-const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://entities/enemies/spawn_explosion.tscn")
+var tile_size: int = 16
 
+var room_position: Vector2i
+var room_size: Vector2i
+var enemies_alive: int
+var center: Vector2i
+
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://entities/enemies/spawn_explosion.tscn")
 const ENEMY_SCENES: Dictionary = {
 	"BAT": preload("res://characters/Enemies/Bat/bat.tscn"),
 	"GOBLIN": preload("res://characters/Enemies/Goblin/goblin.tscn")
 }
 
-var number_of_enemies: int
 
-@onready var tilemap: TileMap = get_node("NavigationRegion2D/TileMap")
-@onready var door_container: Node2D = get_node("Doors")
-@onready var entrance: Node2D = get_node("Entrance")
-@onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
-@onready var player_detector: Area2D = get_node("PlayerDetector")
+func _ready():
+	pass
 
 
-func _ready() -> void:
-	number_of_enemies = enemy_positions_container.get_child_count()
+func init_room(pos: Vector2i, size: Vector2i, enemies: int):
+	room_position = pos
+	room_size = size
+	enemies_alive = enemies
+	center = room_position + room_size / 2
+
+	self.global_position = center * tile_size
+	_create_player_detector()
 
 
-func _on_enemy_killed() -> void:
-	number_of_enemies -= 1
-	if number_of_enemies == 0:
-		_open_doors()
-	
-	
-func _open_doors() -> void:
-	for door in door_container.get_children():
-		door.open()
+func _create_player_detector():
+	var detector_scene = preload("res://rooms/player_detector.tscn")
+	var detector = detector_scene.instantiate()
+	detector.connect("player_entered", Callable(self, "_on_player_entered"))
+	detector.room_size = room_size
+	add_child(detector)
 
 
-func _close_entrance() -> void:
-	for entry_position in entrance.get_children():
-		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 0, Vector2i(2,6))
-		tilemap.set_cell(0, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 0, Vector2i(3,3))
+func _on_player_entered():
+	close_doors()
+	spawn_enemies(enemies_alive)
 
 
-func _spawn_enemies() -> void:
-	for enemy_position in enemy_positions_container.get_children():
-		var enemy: CharacterBody2D
+func spawn_enemies(count):
+	enemies_alive = count
+	for i in range(count):
+		var key = "BAT"
 		if randi() % 2 == 0:
-			enemy = ENEMY_SCENES.BAT.instantiate()
-		else:
-			enemy = ENEMY_SCENES.GOBLIN.instantiate()
-		enemy.position = enemy_position.position
-		var __ = enemy.connect("tree_exited",self._on_enemy_killed)
-		call_deferred("add_child", enemy)
+			key = "GOBLIN"
+		
+		var enemy_scene = ENEMY_SCENES[key]
+		var enemy = enemy_scene.instantiate()
+		enemy.connect("tree_exited", Callable(self, "_on_enemy_died"))
 
-		var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
-		spawn_explosion.position = enemy_position.position
-		call_deferred("add_child", spawn_explosion)
+		var rand_x = randi_range(-(room_size.x - 2) / 2, (room_size.x - 2) / 2) 
+		var rand_y = randi_range(-(room_size.y - 2) / 2, (room_size.y - 2) / 2)
+		enemy.position = Vector2i(rand_x * tile_size, rand_y * tile_size)
+
+		var explosion = SPAWN_EXPLOSION_SCENE.instantiate()
+		explosion.position = enemy.position
+
+		get_node("Enemies").call_deferred("add_child", enemy)
+		get_node("Enemies").call_deferred("add_child", explosion)
 
 
-func _on_player_detector_body_entered(_body: Node2D) -> void:
-	player_detector.queue_free()
-	_close_entrance()
-	if number_of_enemies > 0:
-		_spawn_enemies()
-	else:
-		_open_doors()
+func _on_enemy_died():
+	enemies_alive -= 1
+	if enemies_alive == 0:
+		open_doors()
+
+
+func close_doors():
+	print("zamykamy drzwi")
+	pass
+
+
+func open_doors():
+	print("otwieramy drzwi")
+	pass

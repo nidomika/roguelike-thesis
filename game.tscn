@@ -1263,7 +1263,7 @@ stretch_mode = 4
 [node name="Branch" type="Node" parent="."]
 script = ExtResource("8_yy02n")
 
-[node name="Detectors" type="Node2D" parent="."]
+[node name="Rooms" type="Node2D" parent="."]
 
 [node name="Traps" type="Node2D" parent="."]
 
@@ -1277,7 +1277,7 @@ layer_0/name = "building"
 layer_1/name = "objects"
 
 [node name="Player" parent="." instance=ExtResource("14_a32p3")]
-position = Vector2(64, 80)
+position = Vector2(112, 80)
 max_speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="."]

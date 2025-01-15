@@ -34,8 +34,11 @@ func generate_dungeon() -> void:
 	root_node.assign_monsters(1, 3)
 	
 	for leaf in root_node.get_leaves():
-		if leaf.position != Vector2i(0, 0) and leaf.room_size > leaf.min_monster_spawn_size:
-			place_player_detector_for_room(leaf)
+		var room_scene = preload("res://rooms/Room.tscn")
+		var room_instance = room_scene.instantiate()
+		room_instance.init_room(leaf.room_position, leaf.room_size, leaf.enemies_count)
+		get_node("Rooms").add_child(room_instance)
+		
 		for x in range(leaf.room_size.x):
 			for y in range(leaf.room_size.y):
 				tilemap.set_cells_terrain_connect(0, [Vector2i(x + leaf.room_position.x, y + leaf.room_position.y)], 1, 0, false)
@@ -67,19 +70,6 @@ func create_corridor(start: Vector2i, end: Vector2i) -> void:
 				corridor_tiles.append(Vector2i(x, end.y + t))
 
 	tilemap.set_cells_terrain_connect(0, corridor_tiles, 1, 0, false)
-
-
-func place_player_detector_for_room(leaf: Branch) -> void:
-	var player_detector: PackedScene = preload("res://rooms/player_detector.tscn")
-	var detector = player_detector.instantiate()
-	
-	detector.room_position = leaf.room_position
-	detector.room_size = leaf.room_size
-	detector.tile_size = tile_size
-	detector.position = leaf.room_position * tile_size
-	detector.center = leaf.get_center() * tile_size
-	detector.enemies_count = leaf.enemies_count
-	add_child(detector)
 
 
 func place_spikes(_tile_pos: Vector2i) -> void:
