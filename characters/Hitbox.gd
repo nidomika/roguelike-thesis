@@ -12,8 +12,8 @@ var body_inside: bool = false
 
 
 func _init() -> void:
-	var __ = connect("body_entered", Callable(self, "_on_body_entered"))
-	__ = connect("body_exited", Callable(self, "_on_body_exited"))
+	connect("body_entered", Callable(self, "_on_body_entered"))
+	connect("body_exited", Callable(self, "_on_body_exited"))
 
 
 func _ready() -> void:

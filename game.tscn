@@ -1277,10 +1277,11 @@ layer_0/name = "building"
 layer_1/name = "objects"
 
 [node name="Player" parent="." instance=ExtResource("14_a32p3")]
-position = Vector2(112, 80)
+position = Vector2(-528, 96)
 max_speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
+zoom = Vector2(0.6, 0.6)
 
 [connection signal="hp_changed" from="Player" to="UI/HeartsContainer" method="_on_player_hp_changed"]
