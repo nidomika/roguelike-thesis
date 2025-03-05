@@ -12,10 +12,10 @@ var max_room_size: int = 22
 var min_monster_spawn_size: Vector2i = Vector2i(7, 5)
 var enemies_count: int = 0
 
-var padding_left: int = randi_range(2, 2)
-var padding_top: int = randi_range(2, 2)
-var padding_right: int = randi_range(2, 2)
-var padding_bottom: int = randi_range(2, 2)
+var padding_left: int = 2
+var padding_top: int = 2
+var padding_right: int = 2
+var padding_bottom: int = 2
 
 var room_position: Vector2i = Vector2i()
 var room_size: Vector2i = Vector2i()

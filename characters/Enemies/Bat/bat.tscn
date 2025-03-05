@@ -1,11 +1,11 @@
 [gd_scene load_steps=31 format=3 uid="uid://iytlb5rux4oa"]
 
 [ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_qagsf"]
-[ext_resource type="Script" path="res://characters/Enemies/Bat/bat_fsm.gd" id="2_66k56"]
-[ext_resource type="Script" path="res://characters/Enemies/Bat/bat.gd" id="2_spx7n"]
+[ext_resource type="Script" uid="uid://c1l741jbs6bh7" path="res://characters/Enemies/Bat/bat_fsm.gd" id="2_66k56"]
+[ext_resource type="Script" uid="uid://d5ceydvgsl6e" path="res://characters/Enemies/Bat/bat.gd" id="2_spx7n"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="3_2gwhe"]
 [ext_resource type="Texture2D" uid="uid://bgdr47xjyoyaq" path="res://assets/sgq/SGQ_Dungeon/characters/enemies/bat.png" id="4_fca6n"]
-[ext_resource type="Script" path="res://characters/Hitbox.gd" id="5_6a6t4"]
+[ext_resource type="Script" uid="uid://c7gy3ayvewe8j" path="res://characters/Hitbox.gd" id="5_6a6t4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fa38"]
 atlas = ExtResource("4_fca6n")
@@ -317,10 +317,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ec2sg"]
 _data = {
-"RESET": SubResource("Animation_88eat"),
-"dead": SubResource("Animation_j5hu3"),
-"fly": SubResource("Animation_0hc6g"),
-"hurt": SubResource("Animation_p8t6c")
+&"RESET": SubResource("Animation_88eat"),
+&"dead": SubResource("Animation_j5hu3"),
+&"fly": SubResource("Animation_0hc6g"),
+&"hurt": SubResource("Animation_p8t6c")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lwgru"]
@@ -344,7 +344,7 @@ shape = SubResource("CircleShape2D_bt27t")
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
-"": SubResource("AnimationLibrary_ec2sg")
+&"": SubResource("AnimationLibrary_ec2sg")
 }
 autoplay = "fly"
 speed_scale = 0.5

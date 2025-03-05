@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_qnaf6"]
 [ext_resource type="Texture2D" uid="uid://bfhvhgt675202" path="res://assets/sgq/SGQ_Enemies/normal/16x16/goblin.png" id="2_ev82e"]
 [ext_resource type="Texture2D" uid="uid://ds5fqnopmi6eb" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f0.png" id="2_jji2c"]
-[ext_resource type="Script" path="res://characters/Enemies/Goblin/goblin.gd" id="2_pivbd"]
+[ext_resource type="Script" uid="uid://bjda3km37qfxj" path="res://characters/Enemies/Goblin/goblin.gd" id="2_pivbd"]
 [ext_resource type="Texture2D" uid="uid://dw5tfhbpllojf" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f1.png" id="3_2uh87"]
-[ext_resource type="Script" path="res://characters/Enemies/Goblin/goblin_fsm.gd" id="3_n7i35"]
+[ext_resource type="Script" uid="uid://ddx8p312rsf67" path="res://characters/Enemies/Goblin/goblin_fsm.gd" id="3_n7i35"]
 [ext_resource type="Texture2D" uid="uid://bmom8ukvm7y5v" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f2.png" id="4_ag3kl"]
 [ext_resource type="Texture2D" uid="uid://5nn0e44og8xg" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f3.png" id="5_ftsew"]
 
@@ -299,11 +299,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nr64q"]
 _data = {
-"RESET": SubResource("Animation_g1l34"),
-"dead": SubResource("Animation_3quqw"),
-"hurt": SubResource("Animation_6ensa"),
-"idle": SubResource("Animation_4tvgr"),
-"move": SubResource("Animation_v8bqm")
+&"RESET": SubResource("Animation_g1l34"),
+&"dead": SubResource("Animation_3quqw"),
+&"hurt": SubResource("Animation_6ensa"),
+&"idle": SubResource("Animation_4tvgr"),
+&"move": SubResource("Animation_v8bqm")
 }
 
 [node name="Goblin" instance=ExtResource("1_qnaf6")]
@@ -325,7 +325,7 @@ shape = SubResource("CircleShape2D_npyfn")
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
-"": SubResource("AnimationLibrary_nr64q")
+&"": SubResource("AnimationLibrary_nr64q")
 }
 speed_scale = 0.5
 

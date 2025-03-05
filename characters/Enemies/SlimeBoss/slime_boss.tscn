@@ -1,11 +1,11 @@
 [gd_scene load_steps=31 format=3 uid="uid://bxge6jj1xgo33"]
 
 [ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_hfb61"]
-[ext_resource type="Script" path="res://characters/Enemies/SlimeBoss/slime_boss.gd" id="2_31ua6"]
+[ext_resource type="Script" uid="uid://dwhhcfwm581l6" path="res://characters/Enemies/SlimeBoss/slime_boss.gd" id="2_31ua6"]
 [ext_resource type="Texture2D" uid="uid://djcfxhqge3vcr" path="res://assets/sgq/SGQ_Enemies/bosses/slime_king.png" id="2_ja3g4"]
-[ext_resource type="Script" path="res://characters/Enemies/SlimeBoss/SlimeBossFSM.gd" id="2_na6pf"]
+[ext_resource type="Script" uid="uid://omk1xn84a6ue" path="res://characters/Enemies/SlimeBoss/SlimeBossFSM.gd" id="2_na6pf"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="2_sx6ti"]
-[ext_resource type="Script" path="res://characters/Hitbox.gd" id="3_5pscr"]
+[ext_resource type="Script" uid="uid://c7gy3ayvewe8j" path="res://characters/Hitbox.gd" id="3_5pscr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkn7y"]
 atlas = ExtResource("2_sx6ti")
@@ -335,11 +335,11 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v1co8"]
 _data = {
-"RESET": SubResource("Animation_c2aah"),
-"dead": SubResource("Animation_b0e36"),
-"hurt": SubResource("Animation_meujc"),
-"idle": SubResource("Animation_8uwbx"),
-"jump": SubResource("Animation_3jhxe")
+&"RESET": SubResource("Animation_c2aah"),
+&"dead": SubResource("Animation_b0e36"),
+&"hurt": SubResource("Animation_meujc"),
+&"idle": SubResource("Animation_8uwbx"),
+&"jump": SubResource("Animation_3jhxe")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_30scb"]
@@ -369,7 +369,7 @@ shape = SubResource("CapsuleShape2D_87coe")
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
-"": SubResource("AnimationLibrary_v1co8")
+&"": SubResource("AnimationLibrary_v1co8")
 }
 speed_scale = 0.5
 

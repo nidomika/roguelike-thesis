@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://yb0o0hj3ki1c"]
 
-[ext_resource type="Script" path="res://rooms/player_detector.gd" id="1_lsxq0"]
+[ext_resource type="Script" uid="uid://d25k7d2r0qhpu" path="res://rooms/player_detector.gd" id="1_lsxq0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bscn"]
 resource_local_to_scene = true
