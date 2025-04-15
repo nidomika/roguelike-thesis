@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bjx430h0qnvx3"]
 
-[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="1_qlp5j"]
-[ext_resource type="Script" uid="uid://dgb6rlylsvvm1" path="res://entities/enemies/spawn_explosion.gd" id="2_wjv0b"]
+[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/explosion/enemy_afterdead_explosion_anim_spritesheet.png" id="1_qlp5j"]
+[ext_resource type="Script" uid="uid://dgb6rlylsvvm1" path="res://miscellaneous/spawn_explosion.gd" id="2_wjv0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ythin"]
 atlas = ExtResource("1_qlp5j")

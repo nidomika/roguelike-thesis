@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpq2iicg7pngx"]
 
-[ext_resource type="Script" uid="uid://by5f21wlad7gk" path="res://characters/Enemies/Goblin/throwable.gd" id="1_ipv0m"]
+[ext_resource type="Script" uid="uid://by5f21wlad7gk" path="res://characters/enemies/goblin/throwable.gd" id="1_ipv0m"]
 [ext_resource type="Texture2D" uid="uid://bqe5wnpbyhriq" path="res://assets/sgq/SGQ_Dungeon/weapons_and_projectiles/arrow.png" id="2_tvypi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jwka1"]

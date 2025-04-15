@@ -6,13 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dxhro4fje6xuv" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/surground.png" id="4_6l7ts"]
 [ext_resource type="Texture2D" uid="uid://01aipbypqk54" path="res://assets/sgq/SGQ_Dungeon/props/props.png" id="5_7qw6r"]
 [ext_resource type="Texture2D" uid="uid://dnxsgu13286hm" path="res://assets/sgq/SGQ_Dungeon/props/animated_props.png" id="6_37nvs"]
-[ext_resource type="Script" uid="uid://ds7y3pe4w0v4x" path="res://scripts/map/bsp_generator.gd" id="8_yy02n"]
+[ext_resource type="Script" path="res://scripts/map/BSPGenerator.gd" id="8_yy02n"]
 [ext_resource type="Script" uid="uid://dunroaf4heu13" path="res://ui/ui.gd" id="9_jh85c"]
 [ext_resource type="Script" uid="uid://dbl563dcuosba" path="res://ui/hearts_container.gd" id="10_2wpdm"]
 [ext_resource type="Texture2D" uid="uid://bqqe5akr1iij6" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_full.png" id="11_kpccp"]
 [ext_resource type="Texture2D" uid="uid://daluyl41t7y02" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_half.png" id="12_a1c0h"]
 [ext_resource type="Texture2D" uid="uid://cjktjuq5yqfbe" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_empty.png" id="13_n8a5k"]
-[ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://characters/Player/player.tscn" id="14_a32p3"]
+[ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://characters/player/player.tscn" id="14_a32p3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tvr48"]
 

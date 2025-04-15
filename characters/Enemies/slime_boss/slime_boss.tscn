@@ -1,70 +1,70 @@
 [gd_scene load_steps=31 format=3 uid="uid://bxge6jj1xgo33"]
 
-[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_hfb61"]
-[ext_resource type="Script" uid="uid://dwhhcfwm581l6" path="res://characters/Enemies/SlimeBoss/slime_boss.gd" id="2_31ua6"]
-[ext_resource type="Texture2D" uid="uid://djcfxhqge3vcr" path="res://assets/sgq/SGQ_Enemies/bosses/slime_king.png" id="2_ja3g4"]
-[ext_resource type="Script" uid="uid://omk1xn84a6ue" path="res://characters/Enemies/SlimeBoss/SlimeBossFSM.gd" id="2_na6pf"]
-[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="2_sx6ti"]
-[ext_resource type="Script" uid="uid://c7gy3ayvewe8j" path="res://characters/Hitbox.gd" id="3_5pscr"]
+[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/enemies/enemy.tscn" id="1_2158a"]
+[ext_resource type="Script" uid="uid://dwhhcfwm581l6" path="res://characters/enemies/slime_boss/slime_boss.gd" id="2_nirr0"]
+[ext_resource type="Script" uid="uid://omk1xn84a6ue" path="res://characters/enemies/slime_boss/slime_boss_fsm.gd" id="3_l12b1"]
+[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/explosion/enemy_afterdead_explosion_anim_spritesheet.png" id="4_ywvyb"]
+[ext_resource type="Texture2D" uid="uid://djcfxhqge3vcr" path="res://assets/sgq/SGQ_Enemies/bosses/slime_king.png" id="5_xwil7"]
+[ext_resource type="Script" uid="uid://c7gy3ayvewe8j" path="res://characters/hitbox.gd" id="6_ndpdw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkn7y"]
-atlas = ExtResource("2_sx6ti")
+atlas = ExtResource("4_ywvyb")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xk0q3"]
-atlas = ExtResource("2_sx6ti")
+atlas = ExtResource("4_ywvyb")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wxmo7"]
-atlas = ExtResource("2_sx6ti")
+atlas = ExtResource("4_ywvyb")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7i65b"]
-atlas = ExtResource("2_sx6ti")
+atlas = ExtResource("4_ywvyb")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0i7xa"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(0, 256, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwvc1"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(48, 256, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vy4y7"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(96, 256, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qcf8p"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(144, 256, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6mso"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(0, 0, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rffig"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(48, 0, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j7xe4"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(0, 128, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kregw"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(48, 128, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l53d8"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(96, 128, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_thiio"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(144, 128, 48, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rnyy5"]
-atlas = ExtResource("2_ja3g4")
+atlas = ExtResource("5_xwil7")
 region = Rect2(192, 128, 48, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dubae"]
@@ -346,16 +346,16 @@ _data = {
 radius = 16.0
 height = 44.0
 
-[node name="SlimeBoss" instance=ExtResource("1_hfb61")]
+[node name="SlimeBoss" instance=ExtResource("1_2158a")]
 scale = Vector2(4, 4)
-script = ExtResource("2_31ua6")
+script = ExtResource("2_nirr0")
 acceleration = 20
 max_speed = 50
 max_hp = 8
 hp = 8
 
 [node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource("2_na6pf")
+script = ExtResource("3_l12b1")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 position = Vector2(-1, -11)
@@ -380,7 +380,7 @@ one_shot = true
 [node name="Hitbox" type="Area2D" parent="." index="7"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("3_5pscr")
+script = ExtResource("6_ndpdw")
 damage = 2
 knockback_force = 400
 

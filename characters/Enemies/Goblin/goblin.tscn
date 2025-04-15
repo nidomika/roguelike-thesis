@@ -1,72 +1,72 @@
 [gd_scene load_steps=28 format=3 uid="uid://d2v877jytveo8"]
 
-[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_qnaf6"]
-[ext_resource type="Texture2D" uid="uid://bfhvhgt675202" path="res://assets/sgq/SGQ_Enemies/normal/16x16/goblin.png" id="2_ev82e"]
-[ext_resource type="Texture2D" uid="uid://ds5fqnopmi6eb" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f0.png" id="2_jji2c"]
-[ext_resource type="Script" uid="uid://bjda3km37qfxj" path="res://characters/Enemies/Goblin/goblin.gd" id="2_pivbd"]
-[ext_resource type="Texture2D" uid="uid://dw5tfhbpllojf" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f1.png" id="3_2uh87"]
-[ext_resource type="Script" uid="uid://ddx8p312rsf67" path="res://characters/Enemies/Goblin/goblin_fsm.gd" id="3_n7i35"]
-[ext_resource type="Texture2D" uid="uid://bmom8ukvm7y5v" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f2.png" id="4_ag3kl"]
-[ext_resource type="Texture2D" uid="uid://5nn0e44og8xg" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_f3.png" id="5_ftsew"]
+[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/enemies/enemy.tscn" id="1_oxdsg"]
+[ext_resource type="Script" uid="uid://bjda3km37qfxj" path="res://characters/enemies/goblin/goblin.gd" id="2_j7to3"]
+[ext_resource type="Script" uid="uid://ddx8p312rsf67" path="res://characters/enemies/goblin/goblin_fsm.gd" id="3_tednk"]
+[ext_resource type="Texture2D" uid="uid://ds5fqnopmi6eb" path="res://assets/explosion/enemy_afterdead_explosion_anim_f0.png" id="4_cx7gu"]
+[ext_resource type="Texture2D" uid="uid://dw5tfhbpllojf" path="res://assets/explosion/enemy_afterdead_explosion_anim_f1.png" id="5_rht6v"]
+[ext_resource type="Texture2D" uid="uid://bmom8ukvm7y5v" path="res://assets/explosion/enemy_afterdead_explosion_anim_f2.png" id="6_2w3y4"]
+[ext_resource type="Texture2D" uid="uid://5nn0e44og8xg" path="res://assets/explosion/enemy_afterdead_explosion_anim_f3.png" id="7_s6p4o"]
+[ext_resource type="Texture2D" uid="uid://bfhvhgt675202" path="res://assets/sgq/SGQ_Enemies/normal/16x16/goblin.png" id="8_lciy1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn6e1"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18ews"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uaeeh"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wjuue"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(0, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30usk"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(16, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ax3dd"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(32, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s65em"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(48, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lbry0"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nica2"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rrhga"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(32, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4t8rc"]
-atlas = ExtResource("2_ev82e")
+atlas = ExtResource("8_lciy1")
 region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nsal0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_jji2c")
+"texture": ExtResource("4_cx7gu")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_2uh87")
+"texture": ExtResource("5_rht6v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ag3kl")
+"texture": ExtResource("6_2w3y4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_ftsew")
+"texture": ExtResource("7_s6p4o")
 }],
 "loop": true,
 "name": &"dead",
@@ -306,14 +306,14 @@ _data = {
 &"move": SubResource("Animation_v8bqm")
 }
 
-[node name="Goblin" instance=ExtResource("1_qnaf6")]
-script = ExtResource("2_pivbd")
+[node name="Goblin" instance=ExtResource("1_oxdsg")]
+script = ExtResource("2_j7to3")
 projectile_speed = 150
 acceleration = 20
 max_speed = 50
 
 [node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource("3_n7i35")
+script = ExtResource("3_tednk")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_nsal0")
