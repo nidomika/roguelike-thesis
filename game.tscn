@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dxhro4fje6xuv" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/surground.png" id="4_6l7ts"]
 [ext_resource type="Texture2D" uid="uid://01aipbypqk54" path="res://assets/sgq/SGQ_Dungeon/props/props.png" id="5_7qw6r"]
 [ext_resource type="Texture2D" uid="uid://dnxsgu13286hm" path="res://assets/sgq/SGQ_Dungeon/props/animated_props.png" id="6_37nvs"]
-[ext_resource type="Script" uid="uid://ds7y3pe4w0v4x" path="res://scripts/branch.gd" id="8_yy02n"]
+[ext_resource type="Script" uid="uid://ds7y3pe4w0v4x" path="res://scripts/map/bsp_generator.gd" id="8_yy02n"]
 [ext_resource type="Script" uid="uid://dunroaf4heu13" path="res://ui/ui.gd" id="9_jh85c"]
 [ext_resource type="Script" uid="uid://dbl563dcuosba" path="res://ui/hearts_container.gd" id="10_2wpdm"]
 [ext_resource type="Texture2D" uid="uid://bqqe5akr1iij6" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_full.png" id="11_kpccp"]
