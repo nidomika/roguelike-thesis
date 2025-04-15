@@ -1,7 +1,7 @@
 extends Node2D
 
 var tile_size: int = 16
-var spikes: PackedScene = preload("res://rooms/spikes.tscn")
+var spikes: PackedScene = preload("res://objects/spikes.tscn")
 
 @export var world_size: Vector2i = Vector2i(100, 60)
 

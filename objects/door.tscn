@@ -1,8 +1,8 @@
 [gd_scene load_steps=23 format=3 uid="uid://4wj3i4828p07"]
 
-[ext_resource type="Script" uid="uid://i7vidvbglgfg" path="res://rooms/door.gd" id="1_qugut"]
-[ext_resource type="Texture2D" uid="uid://cp8hohvjprrl5" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_spritesheet.png" id="1_x0f2i"]
-[ext_resource type="Texture2D" uid="uid://drgmb8l22ogce" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_fullyopen.png" id="2_3m6gf"]
+[ext_resource type="Script" uid="uid://i7vidvbglgfg" path="res://objects/door.gd" id="1_qugut"]
+[ext_resource type="Texture2D" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_spritesheet.png" id="1_x0f2i"]
+[ext_resource type="Texture2D" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/tiles/wall/door_fullyopen.png" id="2_3m6gf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v07aj"]
 atlas = ExtResource("1_x0f2i")

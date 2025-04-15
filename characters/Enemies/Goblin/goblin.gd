@@ -1,6 +1,6 @@
 extends Enemy
 
-const THROWABLE_SCENE: PackedScene = preload("res://characters/Enemies/Goblin/throwable.tscn")
+const THROWABLE_SCENE: PackedScene = preload("res://characters/enemies/goblin/throwable.tscn")
 
 const MAX_DISTANCE_TO_PLAYER: int = 120
 const MIN_DISTANCE_TO_PLAYER: int = 60

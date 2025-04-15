@@ -7,7 +7,7 @@ func duplicate_slime() -> void:
 		_spawn_slime(impulse_direction * -1)
 
 func _spawn_slime(direction: Vector2) -> void:
-	var slime: CharacterBody2D = load("res://characters/Enemies/SlimeBoss/slime_boss.tscn").instance()
+	var slime: CharacterBody2D = load("res://characters/enemies/slime_boss/slime_boss.tscn").instance()
 	slime.position = position
 	slime.scale = scale / 2
 	slime.hp = max_hp / 2.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dw4ilar21ah3r"]
 
-[ext_resource type="Script" uid="uid://ujp5xop74eh5" path="res://rooms/spikes.gd" id="1_si47v"]
+[ext_resource type="Script" uid="uid://ujp5xop74eh5" path="res://objects/spikes.gd" id="1_si47v"]
 [ext_resource type="Texture2D" uid="uid://bq8y2vi70ocwp" path="res://assets/sgq/SGQ_Dungeon/props/spikes.png" id="2_0r7nb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t06ne"]

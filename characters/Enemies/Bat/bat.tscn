@@ -1,74 +1,74 @@
 [gd_scene load_steps=31 format=3 uid="uid://iytlb5rux4oa"]
 
-[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/Enemies/Enemy.tscn" id="1_qagsf"]
-[ext_resource type="Script" uid="uid://c1l741jbs6bh7" path="res://characters/Enemies/Bat/bat_fsm.gd" id="2_66k56"]
-[ext_resource type="Script" uid="uid://d5ceydvgsl6e" path="res://characters/Enemies/Bat/bat.gd" id="2_spx7n"]
-[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/v1.1 dungeon crawler 16X16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="3_2gwhe"]
-[ext_resource type="Texture2D" uid="uid://bgdr47xjyoyaq" path="res://assets/sgq/SGQ_Dungeon/characters/enemies/bat.png" id="4_fca6n"]
-[ext_resource type="Script" uid="uid://c7gy3ayvewe8j" path="res://characters/Hitbox.gd" id="5_6a6t4"]
+[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/enemies/enemy.tscn" id="1_qfb6v"]
+[ext_resource type="Script" uid="uid://d5ceydvgsl6e" path="res://characters/enemies/bat/bat.gd" id="2_6yso2"]
+[ext_resource type="Script" uid="uid://c1l741jbs6bh7" path="res://characters/enemies/bat/bat_fsm.gd" id="3_sy1lm"]
+[ext_resource type="Texture2D" uid="uid://bgdr47xjyoyaq" path="res://assets/sgq/SGQ_Dungeon/characters/enemies/bat.png" id="4_pnwd6"]
+[ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/explosion/enemy_afterdead_explosion_anim_spritesheet.png" id="5_4hoi3"]
+[ext_resource type="Script" uid="uid://c7gy3ayvewe8j" path="res://characters/hitbox.gd" id="6_3d87h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fa38"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jaqeg"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0dry4"]
-atlas = ExtResource("3_2gwhe")
+atlas = ExtResource("5_4hoi3")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8h8hj"]
-atlas = ExtResource("3_2gwhe")
+atlas = ExtResource("5_4hoi3")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ux2s0"]
-atlas = ExtResource("3_2gwhe")
+atlas = ExtResource("5_4hoi3")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xek80"]
-atlas = ExtResource("3_2gwhe")
+atlas = ExtResource("5_4hoi3")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ad6nc"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d08jx"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8l10k"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oj4xj"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jh7d"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_526pp"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_udfi6"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(0, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlc3s"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(16, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kgsx8"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(32, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4xeqd"]
-atlas = ExtResource("4_fca6n")
+atlas = ExtResource("4_pnwd6")
 region = Rect2(48, 64, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3ry16"]
@@ -326,12 +326,12 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_lwgru"]
 radius = 5.0
 
-[node name="Bat" instance=ExtResource("1_qagsf")]
-script = ExtResource("2_spx7n")
+[node name="Bat" instance=ExtResource("1_qfb6v")]
+script = ExtResource("2_6yso2")
 max_speed = 12
 
 [node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource("2_66k56")
+script = ExtResource("3_sy1lm")
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 visibility_layer = 5
@@ -351,7 +351,7 @@ speed_scale = 0.5
 
 [node name="Hitbox" type="Area2D" parent="." index="4"]
 collision_mask = 2
-script = ExtResource("5_6a6t4")
+script = ExtResource("6_3d87h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(1, 0)
