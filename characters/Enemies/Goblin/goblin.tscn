@@ -1,6 +1,6 @@
 [gd_scene load_steps=28 format=3 uid="uid://d2v877jytveo8"]
 
-[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/enemies/enemy.tscn" id="1_oxdsg"]
+[ext_resource type="PackedScene" uid="uid://dqbxrgjulhgru" path="res://characters/enemies/Enemy.tscn" id="1_oxdsg"]
 [ext_resource type="Script" uid="uid://bjda3km37qfxj" path="res://characters/enemies/goblin/goblin.gd" id="2_j7to3"]
 [ext_resource type="Script" uid="uid://ddx8p312rsf67" path="res://characters/enemies/goblin/goblin_fsm.gd" id="3_tednk"]
 [ext_resource type="Texture2D" uid="uid://ds5fqnopmi6eb" path="res://assets/explosion/enemy_afterdead_explosion_anim_f0.png" id="4_cx7gu"]

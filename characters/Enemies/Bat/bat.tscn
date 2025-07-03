@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://iytlb5rux4oa"]
 
-[ext_resource type="PackedScene" uid="uid://csadsn1ub4a4y" path="res://characters/enemies/enemy.tscn" id="1_qfb6v"]
+[ext_resource type="PackedScene" uid="uid://dqbxrgjulhgru" path="res://characters/enemies/Enemy.tscn" id="1_qfb6v"]
 [ext_resource type="Script" uid="uid://d5ceydvgsl6e" path="res://characters/enemies/bat/bat.gd" id="2_6yso2"]
 [ext_resource type="Script" uid="uid://c1l741jbs6bh7" path="res://characters/enemies/bat/bat_fsm.gd" id="3_sy1lm"]
 [ext_resource type="Texture2D" uid="uid://bgdr47xjyoyaq" path="res://assets/sgq/SGQ_Dungeon/characters/enemies/bat.png" id="4_pnwd6"]

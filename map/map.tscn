@@ -1,19 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://1d6w3iriv055"]
+[gd_scene load_steps=21 format=3 uid="uid://blmgtsvoyv2g1"]
 
-[ext_resource type="Script" uid="uid://7104350q1i6s" path="res://game.gd" id="1_ff3y8"]
-[ext_resource type="Texture2D" uid="uid://kfkj568mt78k" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/grounds.png" id="2_4rkeb"]
-[ext_resource type="Texture2D" uid="uid://bsudmrffk2c6m" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/walls.png" id="3_g11nn"]
-[ext_resource type="Texture2D" uid="uid://dxhro4fje6xuv" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/surground.png" id="4_6l7ts"]
-[ext_resource type="Texture2D" uid="uid://01aipbypqk54" path="res://assets/sgq/SGQ_Dungeon/props/props.png" id="5_7qw6r"]
-[ext_resource type="Texture2D" uid="uid://dnxsgu13286hm" path="res://assets/sgq/SGQ_Dungeon/props/animated_props.png" id="6_37nvs"]
-[ext_resource type="Script" uid="uid://dunroaf4heu13" path="res://ui/ui.gd" id="9_jh85c"]
-[ext_resource type="Script" uid="uid://dbl563dcuosba" path="res://ui/hearts_container.gd" id="10_2wpdm"]
-[ext_resource type="Texture2D" uid="uid://bqqe5akr1iij6" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_full.png" id="11_kpccp"]
-[ext_resource type="Texture2D" uid="uid://daluyl41t7y02" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_half.png" id="12_a1c0h"]
-[ext_resource type="Texture2D" uid="uid://cjktjuq5yqfbe" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_empty.png" id="13_n8a5k"]
-[ext_resource type="PackedScene" uid="uid://hfyenfwqewx6" path="res://characters/player/player.tscn" id="14_a32p3"]
+[ext_resource type="Script" uid="uid://dt3gc1l3ooby0" path="res://map/map.gd" id="1_hgrid"]
+[ext_resource type="Texture2D" uid="uid://kfkj568mt78k" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/grounds.png" id="2_7lyie"]
+[ext_resource type="Texture2D" uid="uid://bsudmrffk2c6m" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/walls.png" id="3_5jdw0"]
+[ext_resource type="Texture2D" uid="uid://dxhro4fje6xuv" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/surground.png" id="4_kxmgb"]
+[ext_resource type="Texture2D" uid="uid://01aipbypqk54" path="res://assets/sgq/SGQ_Dungeon/props/props.png" id="5_e8e5r"]
+[ext_resource type="Texture2D" uid="uid://dnxsgu13286hm" path="res://assets/sgq/SGQ_Dungeon/props/animated_props.png" id="6_112ik"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_tvr48"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i5grx"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_f53r1"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -57,9 +51,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 agent_radius = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iotsf"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lct0g"]
 resource_name = "grounds"
-texture = ExtResource("2_4rkeb")
+texture = ExtResource("2_7lyie")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -895,9 +889,9 @@ texture = ExtResource("2_4rkeb")
 5:7/0/terrains_peering_bit/top_right_corner = 1
 5:7/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_uqx66")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lc2xo"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8tny"]
 resource_name = "walls"
-texture = ExtResource("3_g11nn")
+texture = ExtResource("3_5jdw0")
 0:0/0 = 0
 0:0/0/z_index = -2
 0:0/0/terrain_set = 1
@@ -1137,13 +1131,13 @@ texture = ExtResource("3_g11nn")
 8:3/0/terrains_peering_bit/top_left_corner = 0
 8:3/0/terrains_peering_bit/top_right_corner = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_215e1"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ap8vc"]
 resource_name = "surground"
-texture = ExtResource("4_6l7ts")
+texture = ExtResource("4_kxmgb")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7sc4i"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wnugf"]
 resource_name = "props"
-texture = ExtResource("5_7qw6r")
+texture = ExtResource("5_e8e5r")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -1203,8 +1197,8 @@ texture = ExtResource("5_7qw6r")
 16:0/0/texture_origin = Vector2i(0, 3)
 16:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -13, 5.5, -13, 4, -0.5, 6, 12.5, -6.5, 12.5, -5, -1)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_80cx4"]
-texture = ExtResource("6_37nvs")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58xwf"]
+texture = ExtResource("6_112ik")
 0:4/size_in_atlas = Vector2i(1, 2)
 0:4/0 = 0
 1:4/size_in_atlas = Vector2i(1, 2)
@@ -1214,7 +1208,7 @@ texture = ExtResource("6_37nvs")
 3:4/size_in_atlas = Vector2i(1, 2)
 3:4/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_i5su1"]
+[sub_resource type="TileSet" id="TileSet_w1ifk"]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "ground_plain"
@@ -1225,55 +1219,20 @@ terrain_set_1/mode = 1
 terrain_set_1/terrain_0/name = "wall_sewer"
 terrain_set_1/terrain_0/color = Color(0.270716, 0.155105, 1, 1)
 navigation_layer_0/layers = 1
-sources/0 = SubResource("TileSetAtlasSource_iotsf")
-sources/1 = SubResource("TileSetAtlasSource_lc2xo")
-sources/2 = SubResource("TileSetAtlasSource_215e1")
-sources/3 = SubResource("TileSetAtlasSource_7sc4i")
-sources/4 = SubResource("TileSetAtlasSource_80cx4")
+sources/0 = SubResource("TileSetAtlasSource_lct0g")
+sources/1 = SubResource("TileSetAtlasSource_k8tny")
+sources/2 = SubResource("TileSetAtlasSource_ap8vc")
+sources/3 = SubResource("TileSetAtlasSource_wnugf")
+sources/4 = SubResource("TileSetAtlasSource_58xwf")
 
-[node name="Game" type="Node2D"]
-script = ExtResource("1_ff3y8")
-
-[node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("9_jh85c")
-
-[node name="HeartsContainer" type="HBoxContainer" parent="UI"]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 112.0
-offset_bottom = 43.0
-script = ExtResource("10_2wpdm")
-full_heart_texture = ExtResource("11_kpccp")
-half_heart_texture = ExtResource("12_a1c0h")
-empty_heart_texture = ExtResource("13_n8a5k")
-
-[node name="TextureRect" type="TextureRect" parent="UI/HeartsContainer"]
-layout_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect2" type="TextureRect" parent="UI/HeartsContainer"]
-layout_mode = 2
-stretch_mode = 4
-
-[node name="TextureRect3" type="TextureRect" parent="UI/HeartsContainer"]
-layout_mode = 2
-stretch_mode = 4
+[node name="Map" type="Node2D"]
+script = ExtResource("1_hgrid")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_tvr48")
+navigation_polygon = SubResource("NavigationPolygon_i5grx")
 
 [node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
-tile_set = SubResource("TileSet_i5su1")
+tile_set = SubResource("TileSet_w1ifk")
 format = 2
 layer_0/name = "building"
 layer_1/name = "objects"
-
-[node name="Player" parent="." instance=ExtResource("14_a32p3")]
-position = Vector2(32, -32)
-max_speed = 100
-
-[node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
-zoom = Vector2(0.1, 0.1)
-
-[connection signal="hp_changed" from="Player" to="UI/HeartsContainer" method="_on_player_hp_changed"]

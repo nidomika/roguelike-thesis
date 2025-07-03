@@ -5,22 +5,42 @@ var min_width = 25
 var min_height = 20
 var max_depth = 4
 
-class Partition:
+@export var tile_size: int = 16
+
+@export var split_min_factor: float = 0.3
+@export var split_max_factor: float = 0.7
+
+class BSPNode:
 	var rect: Rect2
-	var left: Partition = null
-	var right: Partition = null
+	var left: BSPNode = null
+	var right: BSPNode = null
+	var is_vertical_split: bool = false
+	var parent: BSPNode = null
+	var sibling: BSPNode = null
+	var has_room: bool = false
 
 	func _init(r: Rect2):
 		rect = r
 
-func generate(rect: Rect2, depth: int = 0) -> Array:
-	var root = Partition.new(rect)
-	_split(root, depth)
-	var leaves = []
-	_get_leaves(root, leaves)
-	return leaves
+	func get_leaves() -> Array:
+		var leaves := []
+		if left == null and right == null:
+			leaves.append(self)
+		else:
+			if left:
+				leaves += left.get_leaves()
+			if right:
+				leaves += right.get_leaves()
+		return leaves
 
-func _split(node: Partition, depth: int):
+func generate_tree(rect: Rect2, depth: int = 0) -> BSPNode:
+	var root = BSPNode.new(rect)
+	root.parent = null
+	root.sibling = null
+	_split(root, depth)
+	return root
+
+func _split(node: BSPNode, depth: int):
 	if depth >= max_depth or node.rect.size.x < min_width * 2 or node.rect.size.y < min_height * 2:
 		return
 
@@ -29,6 +49,8 @@ func _split(node: Partition, depth: int):
 		split_horizontally = false
 	elif node.rect.size.y > node.rect.size.x:
 		split_horizontally = true
+
+	node.is_vertical_split = not split_horizontally
 
 	var rect1: Rect2
 	var rect2: Rect2
@@ -39,10 +61,11 @@ func _split(node: Partition, depth: int):
 
 		var lower_bound = float(min_split) / node.rect.size.y
 		var upper_bound = float(max_split) / node.rect.size.y
-		var split_factor = randf_range(0.4, 0.6)
+		var split_factor = randf_range(split_min_factor, split_max_factor)
 
 		split_factor = clamp(split_factor, lower_bound, upper_bound)
 		var split = int(node.rect.size.y * split_factor)
+		split = floor(split / float(tile_size)) * tile_size
 		rect1 = Rect2(node.rect.position, Vector2(node.rect.size.x, split))
 		rect2 = Rect2(node.rect.position + Vector2(0, split), Vector2(node.rect.size.x, node.rect.size.y - split))
 	else:
@@ -51,24 +74,20 @@ func _split(node: Partition, depth: int):
 		
 		var lower_bound = float(min_split) / node.rect.size.x
 		var upper_bound = float(max_split) / node.rect.size.x
-		var split_factor = randf_range(0.4, 0.6)
-		
+		var split_factor = randf_range(split_min_factor, split_max_factor)
+
 		split_factor = clamp(split_factor, lower_bound, upper_bound)
 		var split = int(node.rect.size.x * split_factor)
+		split = floor(split / float(tile_size)) * tile_size
 		rect1 = Rect2(node.rect.position, Vector2(split, node.rect.size.y))
 		rect2 = Rect2(node.rect.position + Vector2(split, 0), Vector2(node.rect.size.x - split, node.rect.size.y))
 
-	node.left = Partition.new(rect1)
-	node.right = Partition.new(rect2)
+	node.left = BSPNode.new(rect1)
+	node.right = BSPNode.new(rect2)
+	node.left.parent = node
+	node.right.parent = node
+	node.left.sibling = node.right
+	node.right.sibling = node.left
 	
 	_split(node.left, depth + 1)
 	_split(node.right, depth + 1)
-
-func _get_leaves(node: Partition, leaves: Array):
-	if node.left == null and node.right == null:
-		leaves.append(node.rect)
-	else:
-		if node.left:
-			_get_leaves(node.left, leaves)
-		if node.right:
-			_get_leaves(node.right, leaves)
