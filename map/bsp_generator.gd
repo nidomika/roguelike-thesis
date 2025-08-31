@@ -1,7 +1,7 @@
 extends Node
 class_name BSPGenerator
 
-var min_width = 25
+var min_width = 16
 var min_height = 20
 var max_depth = 4
 
