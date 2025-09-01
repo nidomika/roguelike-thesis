@@ -10,9 +10,10 @@ var rooms = []
 @export var split_max_factor: float = 0.6
 @export var max_depth: int = 6
 @export var use_mst: bool = true
-@export var min_room_tiles: Vector2i = Vector2i(3, 3) # minimum room size in tiles (w, h)
-@export var max_room_aspect: float = 2.0 # max(length/width) (longer/shorter); lower => stricter
-@export var min_room_area_tiles: int = 12 # minimum area in tiles
+@export var min_room_tiles: Vector2i = Vector2i(2, 2) # minimum room size in tiles (w, h) — lowered so small rooms are allowed during tuning
+@export var max_room_aspect: float = 3.0 # max(length/width) (longer/shorter); raised to be less strict so borderline skinny rooms are kept
+@export var min_room_area_tiles: int = 8 # minimum area in tiles — lowered to keep more rooms
+@export var enable_room_filter: bool = true # toggle to disable room filtering during tuning
 
 func generate_map(map_rect: Rect2) -> Dictionary:
 	rooms.clear()
@@ -43,7 +44,7 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 		for i in range(tries):
 			var room_rect = try_place_room(leaf, tile_size)
 			if room_rect != null:
-				var room = Room.new(leaf.rect)
+				var room = Room.new(leaf.rect, null, min_room_tiles, tile_size)
 				room.set_room_rect(room_rect)
 				rooms.append(room)
 				placed = true
@@ -55,10 +56,10 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 		print(leaf.rect, leaf.has_room, leaf.parent, leaf.sibling)
 		
 	# Filter out rooms that are too small or have extreme aspect ratios so they won't be connected
-	if rooms.size() > 0:
+	if rooms.size() > 0 and enable_room_filter:
 		var kept := []
 		var dropped := []
-		print("[MapGenerator] prefilter rooms=", rooms.size())
+		print("[MapGenerator] prefilter rooms=", rooms.size(), " thresholds: min_tiles=", min_room_tiles, " min_area=", min_room_area_tiles, " max_aspect=", max_room_aspect)
 		for room in rooms:
 			var w_tiles = int(room.room_rect.size.x / tile_size)
 			var h_tiles = int(room.room_rect.size.y / tile_size)
@@ -73,7 +74,7 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 				aspect = float(longer) / float(max(1, shorter))
 			var bad_ratio = aspect > max_room_aspect
 			var drop = bad_size or bad_area or bad_ratio
-			print("[MapGenerator] room size tiles=", w_tiles, "x", h_tiles, "area=", area_tiles, "aspect=", aspect, "bad_size=", bad_size, "bad_area=", bad_area, "bad_ratio=", bad_ratio, "=> drop=", drop)
+			print("[MapGenerator] room size tiles=", w_tiles, "x", h_tiles, " area=", area_tiles, " aspect=", aspect, " bad_size=", bad_size, " bad_area=", bad_area, " bad_ratio=", bad_ratio, " => drop=", drop)
 			if drop:
 				# mark leaf as having no room and drop
 				if room.leaf_rect:
@@ -86,7 +87,7 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 			else:
 				kept.append(room)
 		rooms = kept
-		print("[MapGenerator] dropped rooms=", dropped.size(), "kept=", rooms.size())
+		print("[MapGenerator] dropped rooms=", dropped.size(), " kept=", rooms.size())
 	# attempt to load corridor generator at runtime to avoid static parse/class-resolution issues
 	var connections := []
 	var cg_script = load("res://map/corridor_generator.gd")
@@ -104,6 +105,7 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 		# leave empty if not available
 		connections = []
 	
+	print("[MapGenerator] final rooms=", rooms.size(), " connections=", connections.size())
 	return {
 		"root": bsp_root,
 		"rooms": rooms,
@@ -113,7 +115,7 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 
 func try_place_room(leaf, _tile_size: int) -> Variant:
 	# return the inner rect of the leaf (leaf minus 1 tile margin), aligned to tile grid
-	var margin_tiles = 2
+	var margin_tiles = 1
 	var margin = margin_tiles * _tile_size
 
 	var inner_left = leaf.rect.position.x + margin
