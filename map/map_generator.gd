@@ -52,9 +52,7 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 		if not placed:
 			leaf.has_room = false
 
-	for leaf in all_leaves:
-		print(leaf.rect, leaf.has_room, leaf.parent, leaf.sibling)
-		
+
 	# Filter out rooms that are too small or have extreme aspect ratios so they won't be connected
 	if rooms.size() > 0 and enable_room_filter:
 		var kept := []

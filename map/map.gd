@@ -6,8 +6,8 @@ var world_pos = Vector2.ZERO
 var world_size = Vector2(900, 600) # docelowo (1280,720)
 
 var rooms
-var door_blockers := {} # conn_index -> Array of StaticBody2D nodes
-var _door_blockers_node: Node = null
+# Door collision is handled by placing door tiles on a TileMap layer that have collision shapes
+# door blockers node removed; collisions provided by TileMap door tiles
 
 @export var tile_size: int = 16
 @onready var tilemap: TileMap = get_node("NavigationRegion2D/TileMap")
@@ -16,6 +16,9 @@ var _door_blockers_node: Node = null
 @export var debug_draw_door_tiles: bool = false
 @export var detector_min_dim: int = 6 # min width/height in tiles to create a detector
 @export var detector_min_area: int = 12 # min area in tiles to create a detector
+@export var door_tile_layer: int = 1
+@export var door_tile_id: int = 3
+@export var door_autotile_coord: Vector2i = Vector2i(0, 4)
 
 signal map_ready(start_pos)
 
@@ -82,7 +85,6 @@ func _ready():
 			var c2 = data["connections"][i2]
 			if not c2.get("door_open", true):
 				_paint_connection_doors(i2, false)
-				_add_door_blockers(i2)
 		# optional single debug print of counts
 		if debug_draw_door_tiles:
 			var cnt_a = 0
@@ -120,6 +122,8 @@ func _ready():
 		var room = rooms[ri]
 		# make sure room is a Node so it can own children (rooms are Room instances)
 		add_child(room)
+		# debug: print class and script so we can see what the engine registered for this instance
+		print("[Map] attached room[" , ri , "] class=", room.get_class(), " script=", room.get_script())
 		# position the Room node to its room_rect origin so local detector position works
 		room.position = room.room_rect.position
 		# Do not create a detector for the room where the player will spawn
@@ -131,10 +135,19 @@ func _ready():
 		elif size_tiles.x < detector_min_dim or size_tiles.y < detector_min_dim or area_tiles < detector_min_area:
 			print("[Map] skipping detector for room index=", ri, " size_tiles=", size_tiles, " area=", area_tiles)
 		else:
-			room.setup_detector("res://miscellaneous/player_detector.tscn", tile_size, ri)
+			room.setup_detector(tile_size, ri)
+			# if the room created a spawner child, connect its cleared signal so Map can reopen doors
+			if room.has_node("Spawner"):
+				var spn = room.get_node("Spawner")
+				if spn and spn.has_signal("cleared"):
+					spn.connect("cleared", Callable(self, "_on_room_cleared"))
+			# attach a Spawner instance to this room and configure enemy scenes
+			# uses the Spawner script (class_name Spawner) if present in the project
 		# connect room-level player_entered to Map handler
 		room.connect("player_entered", Callable(self, "_on_player_entered_room"))
 	generate_tiles()
+	paint_floor_quick()
+	
 
 	# emit map_ready with start position so game.gd can place the player
 	var si = data.get("start_room_index", -1)
@@ -151,11 +164,7 @@ func set_door_state(conn_index: int, open: bool) -> void:
 	data["connections"][conn_index]["door_open"] = open
 	# paint tiles to represent open/closed state
 	_paint_connection_doors(conn_index, open)
-	# add/remove collision blockers for closed doors
-	if open:
-		_remove_door_blockers(conn_index)
-	else:
-		_add_door_blockers(conn_index)
+	# collision is provided by the door tile placed on the TileMap layer
 	call_deferred("_deferred_redraw")
 
 
@@ -183,12 +192,21 @@ func _paint_connection_side(conn_index: int, side: String, open: bool) -> void:
 		return
 	if door_cells.size() == 0:
 		return
-	var terrain_set_idx = 0
-	var terrain_idx = 1
-	if not open:
-		terrain_set_idx = 1
-		terrain_idx = 0
-	tilemap.set_cells_terrain_connect(0, door_cells, terrain_idx, terrain_set_idx, false)
+
+	# If open, remove any door tiles on the door layer; if closed, place explicit door tiles
+	var cells_vec := []
+	for c in door_cells:
+		var v = _cell_to_vec2i(c)
+		if v != null:
+			cells_vec.append(v)
+
+	if open:
+		for pos in cells_vec:
+			tilemap.set_cell(door_tile_layer, pos, -1)
+	else:
+		for pos in cells_vec:
+			# place explicit door tile id with autotile coord
+			tilemap.set_cell(door_tile_layer, pos, door_tile_id, door_autotile_coord)
 
 
 func _add_door_blockers_for(conn_index: int, side: String) -> void:
@@ -211,57 +229,7 @@ func _add_door_blockers_for(conn_index: int, side: String) -> void:
 			cells.append(conn["door_b_tile"])
 	if cells.size() == 0:
 		return
-	var key = str(conn_index) + "_" + side
-	# remove existing if present
-	if door_blockers.has(key):
-		_remove_door_blockers_for(conn_index, side)
-
-	# ensure parent node
-	if _door_blockers_node == null or not is_instance_valid(_door_blockers_node):
-		_door_blockers_node = Node2D.new()
-		_door_blockers_node.name = "DoorBlockers"
-		add_child(_door_blockers_node)
-
-	var created := []
-	for cell in cells:
-		var cx := -1
-		var cy := -1
-		if typeof(cell) == TYPE_DICTIONARY and cell.has("x") and cell.has("y"):
-			cx = int(cell["x"])
-			cy = int(cell["y"])
-		elif cell is Vector2 or cell is Vector2i:
-			cx = int(cell.x)
-			cy = int(cell.y)
-		else:
-			print("[Map] door blocker (side): unsupported cell value:", cell)
-			continue
-
-		var sb = StaticBody2D.new()
-		sb.collision_layer = 1
-		sb.collision_mask = 1
-		var col = CollisionShape2D.new()
-		var rect = RectangleShape2D.new()
-		rect.extents = Vector2(tile_size * 0.5, tile_size * 0.5)
-		col.shape = rect
-		col.position = Vector2.ZERO
-		sb.add_child(col)
-		# compute world origin from tile coordinates
-		var origin = tilemap.to_global(Vector2(cx * tile_size, cy * tile_size))
-		sb.position = origin + Vector2(tile_size * 0.5, tile_size * 0.5)
-		_door_blockers_node.add_child(sb)
-		created.append(sb)
-
-	door_blockers[key] = created
-
-
-func _remove_door_blockers_for(conn_index: int, side: String) -> void:
-	var key = str(conn_index) + "_" + side
-	if not door_blockers.has(key):
-		return
-	for n in door_blockers[key]:
-		if is_instance_valid(n):
-			n.queue_free()
-	door_blockers.erase(key)
+	return
 
 
 func open_door(conn_index: int) -> void:
@@ -296,85 +264,50 @@ func _paint_connection_doors(conn_index: int, open: bool) -> void:
 	# - closed doors should use wall terrain: terrain_set=1, terrain_idx=0
 	if door_cells.size() == 0:
 		return
-	var terrain_set_idx = 0
-	var terrain_idx = 1
-	if not open:
-		terrain_set_idx = 1
-		terrain_idx = 0
-	# Call set_cells_terrain_connect on the tiles (layer 0)
-	tilemap.set_cells_terrain_connect(0, door_cells, terrain_idx, terrain_set_idx, false)
+
+	var cells_vec := []
+	for c in door_cells:
+		var v = _cell_to_vec2i(c)
+		if v != null:
+			cells_vec.append(v)
+
+	# Ensure the underlying terrain for door cells is set so autotile connects correctly.
+	# Open doors should match rooms/corridors: terrain_set=0, terrain_idx=1
+	# Closed doors should use wall terrain: terrain_set=1, terrain_idx=0
+	if open:
+		# set underlying terrain to floor/corridor
+		if cells_vec.size() > 0:
+			tilemap.set_cells_terrain_connect(0, cells_vec, 0, 1, false)
+		# remove explicit door tiles so the floor is visible
+		for pos in cells_vec:
+			tilemap.set_cell(door_tile_layer, pos, -1)
+	else:
+		# set underlying terrain to wall so autotile/walls render under the door
+		if cells_vec.size() > 0:
+			tilemap.set_cells_terrain_connect(0, cells_vec, 1, 0, false)
+		# place explicit door tile on the door layer
+		for pos in cells_vec:
+			tilemap.set_cell(door_tile_layer, pos, door_tile_id, door_autotile_coord)
 
 
-func _add_door_blockers(conn_index: int) -> void:
-	# Spawn StaticBody2D + CollisionShape2D at each door tile to block movement
-	if not data or not data.has("connections"):
-		return
-	var conn = data["connections"][conn_index]
-	var cells := []
-	if conn.has("door_a_tiles"):
-		for t in conn["door_a_tiles"]:
-			cells.append(t)
-	elif conn.has("door_a_tile"):
-		cells.append(conn["door_a_tile"])
-	if conn.has("door_b_tiles"):
-		for t2 in conn["door_b_tiles"]:
-			cells.append(t2)
-	elif conn.has("door_b_tile"):
-		cells.append(conn["door_b_tile"])
-	if cells.size() == 0:
-		return
-	# ensure we don't create duplicate blockers for the same connection
-	var key = str(conn_index)
-	if door_blockers.has(key):
-		_remove_door_blockers(conn_index)
+func _cell_to_vec2i(cell):
+	if typeof(cell) == TYPE_DICTIONARY and cell.has("x") and cell.has("y"):
+		return Vector2i(int(cell["x"]), int(cell["y"]))
+	elif cell is Vector2:
+		return Vector2i(int(cell.x), int(cell.y))
+	elif cell is Vector2i:
+		return cell
+	return null
+	
 
-	# ensure we have a parent node for blockers
-	if _door_blockers_node == null or not is_instance_valid(_door_blockers_node):
-		_door_blockers_node = Node2D.new()
-		_door_blockers_node.name = "DoorBlockers"
-		add_child(_door_blockers_node)
-
-	var created := []
-	for cell in cells:
-		# accept either a Vector2/Vector2i or a Dictionary {"x":..., "y":...}
-		var cx := -1
-		var cy := -1
-		if typeof(cell) == TYPE_DICTIONARY and cell.has("x") and cell.has("y"):
-			cx = int(cell["x"])
-			cy = int(cell["y"])
-		elif cell is Vector2 or cell is Vector2i:
-			cx = int(cell.x)
-			cy = int(cell.y)
-		else:
-			print("[Map] door blocker: unsupported cell value:", cell)
-			continue
-
-		var sb = StaticBody2D.new()
-		sb.collision_layer = 1
-		sb.collision_mask = 1
-		var col = CollisionShape2D.new()
-		var rect = RectangleShape2D.new()
-		rect.extents = Vector2(tile_size * 0.5, tile_size * 0.5)
-		col.shape = rect
-		col.position = Vector2.ZERO
-		sb.add_child(col)
-		# compute world origin from tile coordinates
-		var origin = tilemap.to_global(Vector2(cx * tile_size, cy * tile_size))
-		sb.position = origin + Vector2(tile_size * 0.5, tile_size * 0.5)
-		_door_blockers_node.add_child(sb)
-		created.append(sb)
-
-	door_blockers[key] = created
+func _add_door_blockers(_conn_index: int) -> void:
+	# No-op: door tile collision provides blocking behavior
+	return
 
 
-func _remove_door_blockers(conn_index: int) -> void:
-	var key = str(conn_index)
-	if not door_blockers.has(key):
-		return
-	for n in door_blockers[key]:
-		if is_instance_valid(n):
-			n.queue_free()
-	door_blockers.erase(key)
+func _remove_door_blockers(_conn_index: int) -> void:
+	# No-op: collision removal is handled by removing the door tile
+	return
 
 
 
@@ -405,6 +338,22 @@ func _on_player_entered_room(room_index: int) -> void:
 			call_deferred("_add_door_blockers_for", i, "b")
 			c["door_b_open"] = false
 	# redraw to reflect closed doors
+	call_deferred("_deferred_redraw")
+
+
+func _on_room_cleared(room_index: int) -> void:
+	print("[Map] _on_room_cleared called for room_index=", room_index)
+	# Open all doors connected to this room (set door_open = true for the appropriate side)
+	if not data or not data.has("connections"):
+		return
+	for i in range(data["connections"].size()):
+		var c = data["connections"][i]
+		if c.get("room_a_index", -1) == room_index:
+			call_deferred("_paint_connection_side", i, "a", true)
+			c["door_a_open"] = true
+		elif c.get("room_b_index", -1) == room_index:
+			call_deferred("_paint_connection_side", i, "b", true)
+			c["door_b_open"] = true
 	call_deferred("_deferred_redraw")
 
 func generate_tiles():
@@ -460,6 +409,42 @@ func generate_tiles():
 			if not open_state:
 				_add_door_blockers(i)
 
+func paint_floor_quick() -> void:
+	var target_cells = tilemap.get_used_cells_by_id(0, 1, Vector2i(2, 1)) # dostosuj args jeśli potrzebne
+	if target_cells.size() == 0:
+		return
+
+	# collect door cells from connections so we don't overwrite door tiles
+	var door_cells := []
+	if data and data.has("connections"):
+		for conn in data["connections"]:
+			if conn.has("door_a_tiles"):
+				for t in conn["door_a_tiles"]:
+					var v = _cell_to_vec2i(t)
+					if v != null:
+						door_cells.append(v)
+			elif conn.has("door_a_tile"):
+				var va = _cell_to_vec2i(conn["door_a_tile"])
+				if va != null:
+					door_cells.append(va)
+			if conn.has("door_b_tiles"):
+				for t2 in conn["door_b_tiles"]:
+					var v2 = _cell_to_vec2i(t2)
+					if v2 != null:
+						door_cells.append(v2)
+			elif conn.has("door_b_tile"):
+				var vb = _cell_to_vec2i(conn["door_b_tile"])
+				if vb != null:
+					door_cells.append(vb)
+
+	# filter out door cells from the floor paint target
+	var filtered := []
+	for c in target_cells:
+		if not (c in door_cells):
+			filtered.append(c)
+
+	if filtered.size() > 0:
+		tilemap.set_cells_terrain_connect(0, filtered, 0, 1, false)
 
 func _deferred_redraw() -> void:
 	# no-op: avoid calling engine update methods here (some builds raised "Method not found")

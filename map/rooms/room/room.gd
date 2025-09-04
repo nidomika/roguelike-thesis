@@ -7,11 +7,14 @@ var tile_size: float
 var room_rect: Rect2
 var leaf_rect: Rect2
 var door_positions: Array = []
+
+var SpawnerScript = preload("res://map/spawner.gd")
+
 signal player_entered
 
-func setup_detector(detector_scene_path: String = "res://miscellaneous/player_detector.tscn", tile_size_in: int = 16, room_index: int = -1) -> void:
+func setup_detector(tile_size_in: int = 16, room_index: int = -1) -> void:
 	# Instance a PlayerDetector inside this Room node and forward its signal
-	var det_scene = load(detector_scene_path)
+	var det_scene = load("res://miscellaneous/player_detector.tscn")
 	var det = det_scene.instantiate()
 	det.room_size = get_size_tiles() - Vector2i(3, 3)
 	det.tile_size = tile_size_in
@@ -24,9 +27,33 @@ func setup_detector(detector_scene_path: String = "res://miscellaneous/player_de
 	# bind the room_index into the callable so the detector's signal forwards it
 	det.connect("player_entered", Callable(self, "_on_detector_player_entered").bind(room_index))
 
+	# Ensure the room has a Spawner child created programmatically if none exists
+	if not has_node("Spawner"):
+		var spawner = SpawnerScript.new()
+		spawner.name = "Spawner"
+		add_child(spawner)
+
 func _on_detector_player_entered(room_index: int) -> void:
 	print("[Room] detector fired for room_index=", room_index, " room_rect=", room_rect, " node_position=", position)
+	# select random spawn count and trigger room-local spawner if present
+	var spawn_count := -1
+	# if Room has exported desired min/max overrides, otherwise Spawner will use its own
+	# pick a random number here (in tiles-based or enemy-count space) - use a simple random
+	spawn_count = randi_range(1, 4)
+	# find the Spawner child (we created it in setup_detector) and start spawn
+	var spawner_node := $Spawner if has_node("Spawner") else null
+	if spawner_node and spawner_node.has_method("start_spawn_for_room"):
+		call_deferred("_deferred_start_spawner", spawner_node, spawn_count, room_index, room_rect, tile_size)
+	# forward room-level event
 	emit_signal("player_entered", room_index)
+
+
+
+func _deferred_start_spawner(spawner_node: Node, count: int, room_index: int, room_rect_in: Rect2 = Rect2(), tile_size_in: int = 16) -> void:
+	if not is_instance_valid(spawner_node):
+		return
+	if spawner_node.has_method("start_spawn_for_room"):
+		spawner_node.start_spawn_for_room(room_index, count, room_rect_in, tile_size_in)
 
 # internal default minimum room size in tiles (can be overridden by MapGenerator)
 var min_room_tiles: Vector2i = Vector2i(8, 8)
