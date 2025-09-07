@@ -8,26 +8,7 @@ signal cleared(room_index: int)
 var live_enemies: Array = []
 
 func spawn_in_room(room_node: Node2D, room_index: int, count: int, spawn_rect: Rect2, tile_size: int) -> void:
-	print("[Spawner] spawn_in_room called for room ", room_index)
-	print("[Spawner] spawn_rect size: ", spawn_rect.size)
-	print("[Spawner] enemy_scenes count: ", enemy_scenes.size())
-	
-	if enemy_scenes.is_empty():
-		push_warning("Spawner has no enemy scenes configured.")
-		emit_signal("cleared", room_index)
-		return
-
-	if spawn_rect.size == Vector2.ZERO:
-		push_warning("Spawner called with an empty spawn_rect.")
-		emit_signal("cleared", room_index)
-		return
-
 	var candidates = _get_spawn_candidates(spawn_rect, tile_size)
-	if candidates.is_empty():
-		push_warning("No valid spawn locations found in the provided rect.")
-		emit_signal("cleared", room_index)
-		return
-
 	var spawn_count = min(count, candidates.size())
 
 	for i in range(spawn_count):
@@ -43,9 +24,6 @@ func spawn_in_room(room_node: Node2D, room_index: int, count: int, spawn_rect: R
 
 		room_node.add_child(enemy)
 		enemy.global_position = world_pos
-
-	if live_enemies.is_empty():
-		emit_signal("cleared", room_index)
 
 func _get_spawn_candidates(spawn_rect: Rect2, tile_size: int) -> Array[Vector2i]:
 	var start_x = int(floor(spawn_rect.position.x / tile_size))
@@ -65,11 +43,11 @@ func _get_spawn_candidates(spawn_rect: Rect2, tile_size: int) -> Array[Vector2i]
 	for x in range(start_x, end_x):
 		for y in range(start_y, end_y):
 			all_cells.append(Vector2i(x, y))
+
 	return all_cells
 
 func _on_enemy_tree_exited(enemy: Node, room_index: int) -> void:
 	if enemy in live_enemies:
 		live_enemies.erase(enemy)
 	if live_enemies.is_empty():
-		print("[Spawner] all enemies gone, cleared room=", room_index)
 		emit_signal("cleared", room_index)

@@ -31,12 +31,12 @@ func setup_detector(tile_size: int, room_index: int) -> void:
 		spawner.enemy_scenes = [GOBLIN_SCENE, BAT_SCENE]
 		add_child(spawner)
 
+
 func _on_detector_player_entered(room_index: int) -> void:
-	print("[Room ", room_index, "] Detector triggered. Emitting signal to Map.")
 	emit_signal("player_entered", room_index)
 
-func get_center() -> Vector2:
-	return room_rect.position + room_rect.size * 0.5
+func get_center() -> Vector2i:
+	return Vector2i(room_rect.position + room_rect.size * 0.5)
 
 func get_size_tiles() -> Vector2i:
 	if not room_rect:

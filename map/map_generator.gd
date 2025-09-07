@@ -26,12 +26,11 @@ func generate_map(map_rect: Rect2) -> Dictionary:
 
 	var connections = []
 	var cg_script = load("res://map/corridor_generator.gd")
-	if cg_script != null:
-		var cg = cg_script.new()
-		if use_mst and cg.has_method("generate_mst"):
-			connections = cg.generate_mst(rooms, bsp_root, tile_size)
-		elif cg.has_method("generate"):
-			connections = cg.generate(rooms, bsp_root, tile_size)
+	var cg = cg_script.new()
+	if use_mst and cg.has_method("generate_mst"):
+		connections = cg.generate_mst(rooms, bsp_root, tile_size)
+	elif cg.has_method("generate"):
+		connections = cg.generate(rooms, bsp_root, tile_size)
 
 	return {
 		"root": bsp_root,
@@ -74,6 +73,7 @@ func create_rooms_from_leaves(leaves: Array) -> Array:
 		var room = Room.new(room_rect)
 		created_rooms.append(room)
 	return created_rooms
+
 
 func get_inner_rect(rect: Rect2, tile_size_in: int) -> Rect2:
 	var margin = 2 * tile_size_in

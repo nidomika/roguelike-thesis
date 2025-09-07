@@ -1,8 +1,6 @@
 extends Object
 class_name GraphUtils
 
-# Utility functions for building a room graph and finding the longest simple path
-# Assumes the graph is acyclic (tree / MST). Use get_longest_path_from_data(data).
 
 func build_adjacency(rooms: Array, connections: Array) -> Array:
 	var n = rooms.size()
@@ -13,7 +11,7 @@ func build_adjacency(rooms: Array, connections: Array) -> Array:
 	for c in connections:
 		var ia = -1
 		var ib = -1
-		# prefer explicit indices if present
+		
 		if c.has("room_a_index") and c.has("room_b_index"):
 			ia = c["room_a_index"]
 			ib = c["room_b_index"]
@@ -31,7 +29,6 @@ func build_adjacency(rooms: Array, connections: Array) -> Array:
 						break
 
 		if ia >= 0 and ib >= 0 and ia != ib:
-			# avoid duplicate entries
 			if not adj[ia].has(ib):
 				adj[ia].append(ib)
 			if not adj[ib].has(ia):

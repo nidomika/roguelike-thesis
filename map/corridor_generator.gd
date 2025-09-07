@@ -197,10 +197,18 @@ func _make_connection(room_a, room_b) -> Dictionary:
 		
 		var floor_rect = Rect2(start_x, y_center - tile_size, corridor_width, tile_size * 2)
 		
+		var door_a_y = int(y_center / tile_size)
+		var door_b_y = int(y_center / tile_size)
+		
+		var door_a_x = int(start_x / tile_size)
+		var door_b_x = int(end_x / tile_size) - 1
+		
 		conn = {
 			"floor_rect": floor_rect,
-			"door_a_tile": Vector2i(int(start_x / tile_size) -1, int(y_center / tile_size)),
-			"door_b_tile": Vector2i(int(end_x / tile_size), int(y_center / tile_size)),
+			"door_a_tile": Vector2i(door_a_x, door_a_y),
+			"door_a_tiles": [Vector2i(door_a_x, door_a_y), Vector2i(door_a_x, door_a_y - 1)],
+			"door_b_tile": Vector2i(door_b_x, door_b_y),
+			"door_b_tiles": [Vector2i(door_b_x, door_b_y), Vector2i(door_b_x, door_b_y - 1)],
 		}
 	else: # Vertical corridor
 		var x_center = (max(ra.position.x, rb.position.x) + min(ra.end.x, rb.end.x)) / 2
@@ -212,10 +220,18 @@ func _make_connection(room_a, room_b) -> Dictionary:
 		var corridor_height = end_y - start_y
 
 		var floor_rect = Rect2(x_center - tile_size, start_y, tile_size * 2, corridor_height)
+		
+		var door_a_x = int(x_center / tile_size)
+		var door_b_x = int(x_center / tile_size)
+		
+		var door_a_y = int(start_y / tile_size)
+		var door_b_y = int(end_y / tile_size) - 1
 
 		conn = {
 			"floor_rect": floor_rect,
-			"door_a_tile": Vector2i(int(x_center / tile_size), int(start_y / tile_size) -1),
-			"door_b_tile": Vector2i(int(x_center / tile_size), int(end_y / tile_size)),
+			"door_a_tile": Vector2i(door_a_x, door_a_y),
+			"door_a_tiles": [Vector2i(door_a_x, door_a_y), Vector2i(door_a_x - 1, door_a_y)],
+			"door_b_tile": Vector2i(door_b_x, door_b_y),
+			"door_b_tiles": [Vector2i(door_b_x, door_b_y), Vector2i(door_b_x - 1, door_b_y)],
 		}
 	return conn
