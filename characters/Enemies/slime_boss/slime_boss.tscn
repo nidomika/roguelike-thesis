@@ -364,6 +364,7 @@ script = ExtResource("3_l12b1")
 position = Vector2(-1, -11)
 sprite_frames = SubResource("SpriteFrames_dubae")
 animation = &"idle"
+frame = 1
 
 [node name="CollisionShape2D" parent="." index="2"]
 rotation = 1.5708

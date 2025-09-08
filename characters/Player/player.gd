@@ -41,3 +41,8 @@ func switch_camera() -> void:
 	main_scene_camera.position = position
 	main_scene_camera.enabled = true
 	get_node("Camera2D").enabled = false
+
+
+func heal(amount: int):
+	hp = min(hp + amount, max_hp)
+	emit_signal("hp_changed", hp)

@@ -19,6 +19,8 @@ signal map_ready(start_pos)
 signal boss_triggered(player)
 var _boss_triggered: bool = false
 
+var PotionScene = preload("res://objects/potion.tscn")
+
 func _ready():
 	var map_rect = Rect2(world_pos, world_size)
 	var map_generator = MapGenerator.new()
@@ -71,13 +73,19 @@ func _ready():
 		
 		var size_tiles = room.get_size_tiles()
 		var area_tiles = size_tiles.x * size_tiles.y
-		if ri != start_room_idx and ri != end_room_idx and size_tiles.x >= detector_min_dim and size_tiles.y >= detector_min_dim and area_tiles >= detector_min_area:
-			room.setup_detector(tile_size, ri)
-			var spn = room.get_node("Spawner")
-			spn.connect("cleared", Callable(self, "_on_room_cleared"))
+		if ri != start_room_idx and ri != end_room_idx:
+			if size_tiles.x >= detector_min_dim and size_tiles.y >= detector_min_dim and area_tiles >= detector_min_area:
+				room.setup_detector(tile_size, ri)
+				var spn = room.get_node("Spawner")
+				spn.connect("cleared", Callable(self, "_on_room_cleared"))
+			else:
+				if randi() % 5 == 0:
+					var potion = PotionScene.instantiate()
+					room.add_child(potion)
+					potion.global_position = room.get_center()
 
 		room.connect("player_entered", Callable(self, "_on_player_entered_room"))
-		
+
 	generate_tiles()
 	place_boss_trigger_center()
 	

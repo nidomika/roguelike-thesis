@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://blmgtsvoyv2g1"]
+[gd_scene load_steps=23 format=3 uid="uid://blmgtsvoyv2g1"]
 
 [ext_resource type="Script" uid="uid://dt3gc1l3ooby0" path="res://map/map.gd" id="1_hgrid"]
 [ext_resource type="Texture2D" uid="uid://kfkj568mt78k" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/grounds.png" id="2_7lyie"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dxhro4fje6xuv" path="res://assets/sgq/SGQ_Dungeon/grounds_and_walls/surground.png" id="4_kxmgb"]
 [ext_resource type="Texture2D" uid="uid://01aipbypqk54" path="res://assets/sgq/SGQ_Dungeon/props/props.png" id="5_e8e5r"]
 [ext_resource type="Texture2D" uid="uid://dnxsgu13286hm" path="res://assets/sgq/SGQ_Dungeon/props/animated_props.png" id="6_112ik"]
+[ext_resource type="Texture2D" uid="uid://cll1opx3yocy6" path="res://assets/sgq/SGQ_Dungeon/props/pickup_items_animated.png" id="7_5jdw0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i5grx"]
 
@@ -1199,6 +1200,7 @@ texture = ExtResource("5_e8e5r")
 16:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -13, 5.5, -13, 4, -0.5, 6, 12.5, -6.5, 12.5, -5, -1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58xwf"]
+resource_name = "animated_props"
 texture = ExtResource("6_112ik")
 0:4/size_in_atlas = Vector2i(1, 2)
 0:4/0 = 0
@@ -1208,6 +1210,14 @@ texture = ExtResource("6_112ik")
 2:4/0 = 0
 3:4/size_in_atlas = Vector2i(1, 2)
 3:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kxmgb"]
+resource_name = "pickup_items"
+texture = ExtResource("7_5jdw0")
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_w1ifk"]
 physics_layer_0/collision_layer = 1
@@ -1225,6 +1235,7 @@ sources/1 = SubResource("TileSetAtlasSource_k8tny")
 sources/2 = SubResource("TileSetAtlasSource_ap8vc")
 sources/3 = SubResource("TileSetAtlasSource_wnugf")
 sources/4 = SubResource("TileSetAtlasSource_58xwf")
+sources/5 = SubResource("TileSetAtlasSource_kxmgb")
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_hgrid")

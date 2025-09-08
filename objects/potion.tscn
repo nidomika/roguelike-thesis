@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://k05j36xn43x5"]
+
+[ext_resource type="Script" uid="uid://b6u3mfvlnsnf4" path="res://objects/potion.gd" id="1_4b1ee"]
+[ext_resource type="Texture2D" uid="uid://cll1opx3yocy6" path="res://assets/sgq/SGQ_Dungeon/props/pickup_items_animated.png" id="1_mdijx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj1ai"]
+atlas = ExtResource("1_mdijx")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkicf"]
+atlas = ExtResource("1_mdijx")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oil3h"]
+atlas = ExtResource("1_mdijx")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxk6t"]
+atlas = ExtResource("1_mdijx")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_06ild"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj1ai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkicf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oil3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxk6t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_mdijx"]
+a = Vector2(0, -5)
+b = Vector2(0, 5)
+
+[node name="Potion" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_4b1ee")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_06ild")
+autoplay = "default"
+frame = 3
+frame_progress = 0.30355
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_mdijx")
