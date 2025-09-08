@@ -2,7 +2,6 @@ extends Object
 class_name CorridorGenerator
 
 @export var tile_size: int = 16
-@export var max_nn_dist_tiles: int = 12
 
 class Edge:
 	var a: int

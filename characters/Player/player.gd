@@ -4,6 +4,7 @@ extends Character
 @onready var sword_animation_player: AnimationPlayer = sword.get_node("SwordAnimationPlayer")
 @onready var sword_hitbox: Area2D = get_node("Sword/AnimatedSprite2D/SwordHitbox")
 
+signal died
 
 func _process(_delta: float) -> void:
 	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
@@ -43,6 +44,10 @@ func switch_camera() -> void:
 	get_node("Camera2D").enabled = false
 
 
-func heal(amount: int):
+func heal(amount: int) -> void:
 	hp = min(hp + amount, max_hp)
 	emit_signal("hp_changed", hp)
+
+
+func player_dead() -> void:
+	emit_signal("died")

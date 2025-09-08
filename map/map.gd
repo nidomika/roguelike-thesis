@@ -138,7 +138,7 @@ func _handle_player_entered_room(room_index: int) -> void:
 
 	var spn = room.get_node("Spawner")
 	var inner_rect = room.room_rect.grow(-tile_size)
-	spn.spawn_in_room(room, room_index, 3, inner_rect, tile_size)
+	spn.spawn_in_room(room, room_index, inner_rect, tile_size)
 
 
 func _on_room_cleared(room_index: int) -> void:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://1d6w3iriv055"]
+[gd_scene load_steps=9 format=3 uid="uid://1d6w3iriv055"]
 
 [ext_resource type="Script" uid="uid://7104350q1i6s" path="res://game.gd" id="1_ff3y8"]
+[ext_resource type="PackedScene" uid="uid://cnr34so1jwg6m" path="res://ui/overlay_menu.tscn" id="8_j5wjh"]
 [ext_resource type="Script" uid="uid://dunroaf4heu13" path="res://ui/ui.gd" id="9_jh85c"]
 [ext_resource type="Script" uid="uid://dbl563dcuosba" path="res://ui/hearts_container.gd" id="10_2wpdm"]
 [ext_resource type="Texture2D" uid="uid://bqqe5akr1iij6" path="res://assets/sgq/SGQ_ui/game_ui/hearts/heart_full.png" id="11_kpccp"]
@@ -11,36 +12,55 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ff3y8")
 
+[node name="Player" parent="." instance=ExtResource("14_a32p3")]
+max_speed = 100
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(480, 432)
+enabled = false
+zoom = Vector2(5, 5)
+
+[node name="World" type="Node2D" parent="."]
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("9_jh85c")
 
-[node name="HeartsContainer" type="HBoxContainer" parent="UI"]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 112.0
-offset_bottom = 43.0
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeartsContainer" type="HBoxContainer" parent="UI/Control"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 272.0
+offset_bottom = 144.0
 script = ExtResource("10_2wpdm")
 full_heart_texture = ExtResource("11_kpccp")
 half_heart_texture = ExtResource("12_a1c0h")
 empty_heart_texture = ExtResource("13_n8a5k")
 
-[node name="TextureRect" type="TextureRect" parent="UI/HeartsContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/Control/HeartsContainer"]
 layout_mode = 2
-stretch_mode = 4
+expand_mode = 2
+stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="UI/HeartsContainer"]
+[node name="TextureRect2" type="TextureRect" parent="UI/Control/HeartsContainer"]
 layout_mode = 2
-stretch_mode = 4
+expand_mode = 2
+stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="UI/HeartsContainer"]
+[node name="TextureRect3" type="TextureRect" parent="UI/Control/HeartsContainer"]
 layout_mode = 2
-stretch_mode = 4
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Player" parent="." instance=ExtResource("14_a32p3")]
-position = Vector2(32, -32)
-max_speed = 100
+[node name="OverlayMenu" parent="UI" instance=ExtResource("8_j5wjh")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
-
-[connection signal="hp_changed" from="Player" to="UI/HeartsContainer" method="_on_player_hp_changed"]
+[connection signal="hp_changed" from="Player" to="UI/Control/HeartsContainer" method="_on_player_hp_changed"]

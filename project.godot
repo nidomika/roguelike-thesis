@@ -10,23 +10,29 @@ config_version=5
 
 [application]
 
-config/name="roguelike-thesis"
-run/main_scene="res://game.tscn"
+config/name="roguelike"
+run/main_scene="uid://1d6w3iriv055"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+run/name="roguelike-thesis"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=960
+window/size/viewport_height=864
 window/size/resizable=false
-window/stretch/scale=6.0
+window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[gui]
+
+theme/custom_font="uid://c3rjsyn565omo"
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 
@@ -77,3 +83,4 @@ ui_attack={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+2d/snap/snap_2d_transforms_to_pixel=true

@@ -7,7 +7,14 @@ signal cleared(room_index: int)
 
 var live_enemies: Array = []
 
-func spawn_in_room(room_node: Node2D, room_index: int, count: int, spawn_rect: Rect2, tile_size: int) -> void:
+@export var min_enemies: int = 1
+@export var max_enemies: int = 8
+@export var tiles_per_enemy: int = 16
+
+func spawn_in_room(room_node: Node2D, room_index: int, spawn_rect: Rect2, tile_size: int) -> void:
+	var room_area_tiles = (spawn_rect.size.x / tile_size) * (spawn_rect.size.y / tile_size)
+	var count = clamp(int(room_area_tiles / tiles_per_enemy), min_enemies, max_enemies)
+
 	var candidates = _get_spawn_candidates(spawn_rect, tile_size)
 	var spawn_count = min(count, candidates.size())
 
@@ -24,6 +31,7 @@ func spawn_in_room(room_node: Node2D, room_index: int, count: int, spawn_rect: R
 
 		room_node.add_child(enemy)
 		enemy.global_position = world_pos
+
 
 func _get_spawn_candidates(spawn_rect: Rect2, tile_size: int) -> Array[Vector2i]:
 	var start_x = int(floor(spawn_rect.position.x / tile_size))
@@ -45,6 +53,7 @@ func _get_spawn_candidates(spawn_rect: Rect2, tile_size: int) -> Array[Vector2i]
 			all_cells.append(Vector2i(x, y))
 
 	return all_cells
+
 
 func _on_enemy_tree_exited(enemy: Node, room_index: int) -> void:
 	if enemy in live_enemies:

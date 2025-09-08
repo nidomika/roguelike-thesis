@@ -1,5 +1,7 @@
 extends Enemy
 
+signal victory
+
 func _process(_delta: float) -> void:
 	if is_instance_valid(player):
 		if player.global_position.y > global_position.y:
@@ -18,8 +20,13 @@ func duplicate_slime() -> void:
 func _spawn_slime(direction: Vector2) -> void:
 	var slime: CharacterBody2D = load("res://characters/enemies/slime_boss/slime_boss.tscn").instantiate()
 	get_parent().add_child(slime)
+	slime.add_to_group("slime_enemy")
 	slime.global_position = self.global_position + direction * 20 
 	slime.scale = self.scale / 2
 	slime.hp = self.max_hp / 2.0
 	slime.max_hp = self.max_hp / 2.0
-	slime.velocity += direction * 20
+	slime.velocity += direction * 10
+
+
+func killed_all() -> void:
+	emit_signal("victory")

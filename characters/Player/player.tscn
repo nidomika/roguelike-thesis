@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://db8pncllene1f" path="res://characters/character.tscn" id="1_xqw3a"]
 [ext_resource type="Script" uid="uid://cspct0yr5fl55" path="res://characters/player/player.gd" id="2_v4s3x"]
-[ext_resource type="Script" uid="uid://ddxgqruqaae3n" path="res://characters/player/finite_state_machine.gd" id="3_e5kko"]
+[ext_resource type="Script" uid="uid://ddxgqruqaae3n" path="res://characters/player/player_fsm.gd" id="3_e5kko"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/explosion/enemy_afterdead_explosion_anim_spritesheet.png" id="4_dtx28"]
 [ext_resource type="Texture2D" uid="uid://qw84p6fdbf8e" path="res://assets/sgq/SGQ_Dungeon/characters/main/elf.png" id="5_bcp6f"]
 [ext_resource type="Texture2D" uid="uid://b23f851phsaic" path="res://assets/sgq/SGQ_Dungeon/weapons_and_projectiles/weapons_animated.png" id="6_dvrvi"]
@@ -399,11 +399,14 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.45, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
 "method": &"switch_camera"
+}, {
+"args": [],
+"method": &"player_dead"
 }, {
 "args": [],
 "method": &"queue_free"
@@ -556,3 +559,4 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="." index="5"]
+zoom = Vector2(5, 5)
