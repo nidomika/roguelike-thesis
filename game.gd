@@ -25,7 +25,6 @@ func connect_menu():
 	menu.start_pressed.connect(_on_start)
 	menu.resume_pressed.connect(_on_resume)
 	menu.restart_pressed.connect(_on_restart)
-	menu.exit_pressed.connect(_on_exit)
 	
 	menu.menu_opened.connect(_on_menu_opened)
 	menu.menu_closed.connect(_on_menu_closed)

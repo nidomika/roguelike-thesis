@@ -3,7 +3,6 @@ extends Control
 signal start_pressed
 signal resume_pressed
 signal restart_pressed
-signal exit_pressed
 signal menu_opened(kind: int)
 signal menu_closed(kind: int)
 
@@ -27,7 +26,6 @@ func show_menu(kind: Kind) -> void:
 			title.text = "roguelike"
 			desc.text  = "are you ready?"
 			button.text = "start"
-
 		Kind.PAUSE:
 			title.text = "paused"
 			desc.text  = "take a break"
