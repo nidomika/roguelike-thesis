@@ -1,16 +1,14 @@
 extends Node2D
 
-@onready var player: Character = get_node("Player")
 @onready var world := $World
+@onready var player: Character = get_node("Player")
 @onready var menu := $UI/OverlayMenu
 
 
 func _ready():
-	world.process_mode = Node.PROCESS_MODE_PAUSABLE
-	menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	connect_menu()
 
-	var map_scene = preload("res://map/Map.tscn").instantiate()
+	var map_scene = preload("res://map/map.tscn").instantiate()
 	map_scene.connect("map_ready", Callable(self, "_on_map_ready"))
 	map_scene.connect("boss_triggered", Callable(self, "_on_boss_triggered"))
 	world.add_child(map_scene)
@@ -28,7 +26,10 @@ func connect_menu():
 	menu.resume_pressed.connect(_on_resume)
 	menu.restart_pressed.connect(_on_restart)
 	menu.exit_pressed.connect(_on_exit)
-
+	
+	menu.menu_opened.connect(_on_menu_opened)
+	menu.menu_closed.connect(_on_menu_closed)
+	
 	menu.show_menu(menu.Kind.START)
 
 
@@ -84,3 +85,21 @@ func _on_exit() -> void:
 
 func _on_killed_all() -> void:
 	menu.show_menu(menu.Kind.VICTORY)
+
+
+func _set_gameplay_frozen(frozen: bool) -> void:
+	if frozen:
+		world.process_mode  = Node.PROCESS_MODE_DISABLED
+		player.process_mode = Node.PROCESS_MODE_DISABLED
+
+	else:
+		world.process_mode  = Node.PROCESS_MODE_INHERIT
+		player.process_mode = Node.PROCESS_MODE_INHERIT
+
+
+func _on_menu_opened(_kind: int) -> void:
+	_set_gameplay_frozen(true)
+
+
+func _on_menu_closed(_kind: int) -> void:
+	_set_gameplay_frozen(false)

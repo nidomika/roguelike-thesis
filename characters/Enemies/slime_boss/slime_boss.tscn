@@ -1,6 +1,6 @@
 [gd_scene load_steps=31 format=3 uid="uid://bxge6jj1xgo33"]
 
-[ext_resource type="PackedScene" uid="uid://dqbxrgjulhgru" path="res://characters/enemies/Enemy.tscn" id="1_2158a"]
+[ext_resource type="PackedScene" uid="uid://dqbxrgjulhgru" path="res://characters/enemies/enemy.tscn" id="1_2158a"]
 [ext_resource type="Script" uid="uid://dwhhcfwm581l6" path="res://characters/enemies/slime_boss/slime_boss.gd" id="2_nirr0"]
 [ext_resource type="Script" uid="uid://omk1xn84a6ue" path="res://characters/enemies/slime_boss/slime_boss_fsm.gd" id="3_l12b1"]
 [ext_resource type="Texture2D" uid="uid://songtkae8o3q" path="res://assets/explosion/enemy_afterdead_explosion_anim_spritesheet.png" id="4_ywvyb"]

@@ -7,3 +7,6 @@
 /assets
 .vscode
 Godot
+.import/
+export_presets.cfg
+exports

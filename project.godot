@@ -18,8 +18,8 @@ run/name="roguelike-thesis"
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=864
+window/size/viewport_width=800
+window/size/viewport_height=720
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"

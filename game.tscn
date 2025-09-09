@@ -15,12 +15,12 @@ script = ExtResource("1_ff3y8")
 [node name="Player" parent="." instance=ExtResource("14_a32p3")]
 max_speed = 100
 
+[node name="World" type="Node2D" parent="."]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(480, 432)
 enabled = false
 zoom = Vector2(5, 5)
-
-[node name="World" type="Node2D" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("9_jh85c")
