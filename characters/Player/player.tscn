@@ -170,8 +170,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulne2"]
-radius = 4.0
-height = 14.0
+radius = 5.0
+height = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ijpgl"]
 atlas = ExtResource("6_dvrvi")

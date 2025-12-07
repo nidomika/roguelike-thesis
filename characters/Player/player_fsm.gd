@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func _state_logic(_delta: float) -> void:
-	if state == states.idle or state == states.move:
+	if state == states.idle or state == states.move or state == states.hurt:
 		parent.get_input()
 		parent.move()
 

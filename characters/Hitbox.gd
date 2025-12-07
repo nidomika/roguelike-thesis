@@ -5,7 +5,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var body_inside: bool = false
 
 @export var damage: int = 1
-@export var knockback_force: int = 300
+@export var knockback_force: int = 200
 
 @onready var collision_shape: CollisionShape2D = get_child(0)
 @onready var timer: Timer = Timer.new()
