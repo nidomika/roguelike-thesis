@@ -20,6 +20,7 @@ signal boss_triggered(player)
 var _boss_triggered: bool = false
 
 var PotionScene = preload("res://objects/potion.tscn")
+var SpikesScene = preload("res://objects/spikes.tscn")
 
 func _ready():
 	var map_rect = Rect2(world_pos, world_size)
@@ -78,6 +79,23 @@ func _ready():
 				room.setup_detector(tile_size, ri)
 				var spn = room.get_node("Spawner")
 				spn.connect("cleared", Callable(self, "_on_room_cleared"))
+				
+				if area_tiles >= 80:
+					var spike_count = min(3, int(area_tiles / 40))
+					var inner_rect = room.room_rect.grow(-tile_size * 2)
+					
+					var start_x = int(inner_rect.position.x / tile_size)
+					var start_y = int(inner_rect.position.y / tile_size)
+					var width_tiles = int(inner_rect.size.x / tile_size)
+					var height_tiles = int(inner_rect.size.y / tile_size)
+					
+					for i in range(spike_count):
+						var spikes = SpikesScene.instantiate()
+						room.add_child(spikes)
+						var random_tile_x = start_x + randi() % max(1, width_tiles)
+						var random_tile_y = start_y + randi() % max(1, height_tiles)
+						var tile_center = Vector2(random_tile_x * tile_size + tile_size / 2.0, random_tile_y * tile_size + tile_size / 2.0)
+						spikes.global_position = tile_center
 			else:
 				if randi() % 5 == 0:
 					var potion = PotionScene.instantiate()
