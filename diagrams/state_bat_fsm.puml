@@ -1,0 +1,14 @@
+@startuml state_bat_fsm.puml
+[*] --> IDLE
+
+IDLE --> CHASE : Gracz w zasięgu detekcji
+CHASE --> ATTACK : Dystans <= attack_range
+ATTACK --> CHASE : attack_timer <= 0
+
+CHASE : Oblicza ścieżkę (NavigationAgent2D)
+CHASE : Porusza się w kierunku gracza
+ATTACK : mov_direction = Vector2.ZERO
+ATTACK : Zadaje obrażenia (Hitbox aktywny)
+ATTACK : Odlicza attack_timer
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml sequence_player_attack.puml
+actor Player
+participant "Player\n(CharacterBody2D)" as PlayerNode
+participant "Sword\nHitbox" as Hitbox
+participant "Enemy\n(CharacterBody2D)" as Enemy
+participant "Spawner" as Spawner
+
+Player -> PlayerNode: naciśnięcie klawisza ataku
+PlayerNode -> PlayerNode: FSM: IDLE → ATTACK
+PlayerNode -> PlayerNode: AnimationPlayer.play("attack")
+activate PlayerNode #FFAAAA
+
+PlayerNode -> Hitbox: monitoring = true
+Hitbox -> Enemy: wykrycie kolizji (Area2D)
+Hitbox -> Enemy: take_damage(1)
+Enemy -> Enemy: hp -= 1
+Enemy -> Enemy: die()
+Enemy -> Spawner: emit_signal("died")
+Enemy -> Enemy: AnimationPlayer.play("death")
+Spawner -> Spawner: sprawdza listę wrogów
+Spawner -> Map: emit_signal("cleared")
+
+deactivate PlayerNode
+@enduml

@@ -1,0 +1,42 @@
+@startuml sequence_player_movement
+
+title Diagram sekwencji - Ruch postaci gracza
+
+actor Gracz as G
+participant "Player" as P
+participant "PlayerFSM" as FSM
+participant "CharacterBody2D" as CB
+
+G -> P : input (WASD/strzałki)
+activate P
+
+P -> P : get_input_direction()
+P -> FSM : _get_transition()
+activate FSM
+
+alt direction != Vector2.ZERO
+    FSM --> P : "move"
+    P -> FSM : _change_state("move")
+else direction == Vector2.ZERO
+    FSM --> P : "idle"
+    P -> FSM : _change_state("idle")
+end
+deactivate FSM
+
+P -> FSM : _state_logic(delta)
+activate FSM
+
+alt current_state == "move"
+    FSM -> P : velocity = direction * speed
+    P -> CB : move_and_slide()
+    activate CB
+    CB --> P : collision_info
+    deactivate CB
+else current_state == "idle"
+    FSM -> P : velocity = Vector2.ZERO
+end
+
+deactivate FSM
+deactivate P
+
+@enduml

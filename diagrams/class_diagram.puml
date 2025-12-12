@@ -1,0 +1,231 @@
+@startuml class_diagram
+
+title Diagram klas
+
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam nodesep 70
+scale 5
+
+' === BASE CLASSES ===
+abstract class Character {
+    - hp: int
+    - max_hp: int
+    - speed: float
+    --
+    + take_damage(amount, direction, force)
+    + die()
+    + _ready()
+    + _physics_process(delta)
+}
+
+abstract class FiniteStateMachine {
+    - current_state: String
+    - states: Dictionary
+    - parent: Node
+    --
+    + _add_state(name, logic, transition)
+    + _state_logic(delta)
+    + _get_transition(): String
+    + _change_state(new_state)
+    + initialize()
+}
+
+' === PLAYER ===
+class Player {
+    - input_direction: Vector2
+    - attack_cooldown: Timer
+    --
+    + get_input_direction(): Vector2
+    + attack()
+    + _idle_logic(delta)
+    + _moving_logic(delta)
+    + _attacking_logic(delta)
+}
+
+class PlayerFSM {
+    --
+    + _init(parent)
+}
+
+' === ENEMIES ===
+abstract class Enemy {
+    - target: Player
+    - navigation_agent: NavigationAgent2D
+    --
+    + chase()
+    + get_distance_to_player(): float
+}
+
+class Bat {
+    - attack_timer: Timer
+    - attack_range: float
+    --
+    + _idle_logic(delta)
+    + _chase_logic(delta)
+    + _attack_logic(delta)
+}
+
+class BatFSM {
+    --
+    + _init(parent)
+}
+
+class Goblin {
+    - projectile_scene: PackedScene
+    - preferred_distance: float
+    --
+    + throw_projectile()
+    + _idle_logic(delta)
+    + _chase_logic(delta)
+    + _attack_logic(delta)
+}
+
+class GoblinFSM {
+    --
+    + _init(parent)
+}
+
+class SlimeBoss {
+    - split_count: int
+    --
+    + split_on_death()
+}
+
+' === COMBAT ===
+class Hitbox {
+    - damage: int
+    - knockback_force: float
+    - cooldown_timer: Timer
+    --
+    + _on_body_entered(body)
+    + deal_damage(body)
+}
+
+class Weapon {
+    - damage: int
+    - attack_range: float
+    --
+    + attack()
+}
+
+class Projectile {
+    - speed: float
+    - direction: Vector2
+    - enemy_exited: bool
+    --
+    + _physics_process(delta)
+    + _on_body_entered(body)
+}
+
+' === MAP GENERATION ===
+class MapManager {
+    - rooms: Array
+    - corridors: Array
+    --
+    + generate_map()
+    + _handle_player_entered_room(room)
+    + _on_spawner_cleared(room)
+}
+
+class BSPGenerator {
+    - min_width: int
+    - min_height: int
+    --
+    + generate(rect): Array
+    + _split(node): Array
+}
+
+class CorridorGenerator {
+    --
+    + connect_rooms(rooms): Array
+    + _kruskal_mst(edges): Array
+}
+
+class UnionFind {
+    - parent: Dictionary
+    - rank: Dictionary
+    --
+    + find(x): int
+    + union(x, y)
+}
+
+' === ROOM SYSTEM ===
+class Room {
+    - rect: Rect2
+    - inner_rect: Rect2
+    - doors: Array
+    --
+    + get_center(): Vector2
+}
+
+class Spawner {
+    - enemy_scenes: Array
+    - enemies_alive: int
+    --
+    + spawn_in_room(room)
+    + _on_enemy_died()
+}
+
+class Door {
+    - is_open: bool
+    --
+    + open()
+    + close()
+}
+
+class PlayerDetector {
+    --
+    + _on_body_entered(body)
+}
+
+' === UI ===
+class UIManager {
+    --
+    + _on_player_health_changed(hp)
+}
+
+class HeartsContainer {
+    - hearts: Array
+    --
+    + update_hearts(hp)
+}
+
+' === INHERITANCE ===
+Character <|-- Player
+Character <|-- Enemy
+Enemy <|-- Bat
+Enemy <|-- Goblin
+Enemy <|-- SlimeBoss
+
+FiniteStateMachine <|-- PlayerFSM
+FiniteStateMachine <|-- BatFSM
+FiniteStateMachine <|-- GoblinFSM
+
+' === COMPOSITION ===
+Player *-- PlayerFSM
+Bat *-- BatFSM
+Goblin *-- GoblinFSM
+
+Player *-- Weapon
+Weapon *-- Hitbox
+Goblin o-- Projectile
+Projectile *-- Hitbox
+
+MapManager *-- BSPGenerator
+MapManager *-- CorridorGenerator
+CorridorGenerator o-- UnionFind
+
+Room *-- Spawner
+Room *-- PlayerDetector
+Room *-- Door
+
+UIManager *-- HeartsContainer
+
+' === DEPENDENCIES ===
+Spawner ..> Enemy : tworzy
+MapManager ..> Room : tworzy
+Hitbox ..> Character : zadaje\nobrażenia
+
+
+@enduml
